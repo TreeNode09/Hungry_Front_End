@@ -12,6 +12,7 @@
     <div class="search">
         <h2><span style="color: var(--yellow-green-pale)">查</span><span>找</span></h2>
         <h4>查找我们的内容，立即购买。</h4>
+        <search class="head"></search>
     </div>
     <div class="user">
         <h2>用户中心</h2>
@@ -46,14 +47,15 @@ const catagoryStyles = ref([
 {
     border-radius: 10px;
     border-width: 0;
-    padding: 20px 0 20px 20px;
+    
     box-shadow: 0 2px 6px rgba(0,0,0,0.4);  
 }
 
 .catagory
 {
     width: calc(60% - 20px);
-    
+    padding: 20px 0 20px 20px;
+
     background: linear-gradient(var(--green-main), rgba(0,0,0,0));
 }
 
@@ -69,6 +71,7 @@ const catagoryStyles = ref([
 
 .search
 {
+    padding: 20px;
     margin-bottom: 20px;
 
     background: linear-gradient(0.25turn, var(--yellow-green-main), rgba(0,0,0,0));
@@ -76,6 +79,7 @@ const catagoryStyles = ref([
 
 .user
 {
+    padding: 20px;
     background: linear-gradient(var(--yellow-main), rgba(0,0,0,0));
 }
 </style>

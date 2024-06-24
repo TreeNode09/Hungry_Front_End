@@ -3,8 +3,14 @@
 </template>
 
 <script setup>
-const searchText = ''
-function searchInfo(){
+import { ref } from 'vue'
+import router from '@/router'
 
+const searchText = ref('')
+function searchInfo(){
+    router.push({
+        path: '/search',
+        query:{text: searchText.value}
+    })
 }
 </script>

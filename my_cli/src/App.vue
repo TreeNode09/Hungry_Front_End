@@ -126,9 +126,14 @@ button:hover
 
 input
 {
-    height: 50px;
+    color: var(--green-dim);
+    font-size: 22px;
+
+    width: 100%;
+    height: 40px;
     border-radius: 10px;
     border-width: 0;
+    padding-left: 10px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 
     background-color: #fff;
@@ -138,6 +143,11 @@ input::placeholder
 {
     color: var(--green-main);
     font-size: 22px;
+}
+
+input:focus-visible
+{
+    outline-color: var(--green-dim);
 }
 </style>
 
