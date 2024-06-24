@@ -5,7 +5,7 @@
             <h3><span class="title">H</span>ungry?</h3>
         </div>
         <div class="right">
-            <h5 v-if="login">欢迎，{{ username }}</h5>
+            <h6 v-if="login">欢迎，{{ username }}</h6>
         </div>
     </div>
 </div>
@@ -27,7 +27,7 @@ const username = ref("炕洋芋")
     background: linear-gradient(0.25turn, var(--green-main), var(--green-dim));
 }
 
-h3, h5
+h3, h6
 {
     line-height: var(--bar-height);
 }

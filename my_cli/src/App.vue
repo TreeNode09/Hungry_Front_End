@@ -17,6 +17,11 @@
     font-family: Oswald;
     src: url("@/assets/Oswald-Regular.ttf") format("opentype");
 }
+
+.margined
+{
+    margin-top: 10px;
+}
 </style>
 
 <!--模块-->
@@ -88,6 +93,14 @@ h4
 h5
 {
     font-size: 20px;
+    font-weight: 600;
+
+    margin: 0;
+}
+
+h6
+{
+    font-size: 20px;
     font-weight: 400;
 
     margin: 0;
@@ -104,7 +117,12 @@ h5
 button
 {
     display: flex;
-    
+    overflow: hidden;
+
+    font-size: 20px;
+    font-weight: 600;
+   
+    height: 50px;
     border-radius: 10px;
     border-width: 0;
     box-shadow: 0 2px 6px rgba(0,0,0,0.4);
@@ -127,7 +145,7 @@ button:hover
 input
 {
     color: var(--green-dim);
-    font-size: 22px;
+    font-size: 20px;
 
     width: 100%;
     height: 40px;
@@ -142,7 +160,7 @@ input
 input::placeholder
 {
     color: var(--green-main);
-    font-size: 22px;
+    font-size: 20px;
 }
 
 input:focus-visible

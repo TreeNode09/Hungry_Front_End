@@ -18,3 +18,4 @@ app.component('search', SearchBar);     //搜索栏
 app.mount('#app');
 
 Vue.prototype.$axios = axios
+Vue.prototype.$router = router

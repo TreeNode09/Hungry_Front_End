@@ -8,9 +8,11 @@ import router from '@/router'
 
 const searchText = ref('')
 function searchInfo(){
-    router.push({
-        path: '/search',
-        query:{text: searchText.value}
+    if(searchText.value !== ''){
+        router.push({
+            path: '/search',
+            query:{text: searchText.value}
     })
+    }
 }
 </script>

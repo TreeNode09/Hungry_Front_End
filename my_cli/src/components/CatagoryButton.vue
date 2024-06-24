@@ -2,14 +2,14 @@
 <div class="inline">
     <button :style="{ '--hover-color': catagoryStyle.color }">
         <div class="center">
-            <div class="icon">            
+            <div class="icon">
                 <img :src="catagoryStyle.img" :alt="catagoryStyle.name">
             </div>
             <div class="name">
                 <h5>{{ catagoryStyle.name }}</h5>
-            </div> 
-        </div>       
-    </button>     
+            </div>
+        </div>
+    </button>
 </div>
    
 </template>

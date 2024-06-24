@@ -1,10 +1,10 @@
 <template>
-<h4>返回上一页</h4>
-<h2>搜索结果：{{ searchInfo }}</h2>
+<h2 class="margined">搜索结果：{{ searchInfo }}</h2>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, toRefs } from 'vue'
+import { useRoute } from 'vue-router'
 
-const searchInfo = ref("薯条")
+const searchInfo = useRoute().query.text
 </script>

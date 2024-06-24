@@ -1,5 +1,5 @@
 <template>
-<h2 class="head">你想做什么？</h2>
+<h2 class="margined">你想做什么？</h2>
 <div class="left catagory white">
     <h2><span style="color: var(--green-pale)">探</span><span>索美食</span></h2>
     <h4>在数以百计的商家中发现精彩，寻找感兴趣的美食，探索更多可能。</h4>
@@ -12,11 +12,15 @@
     <div class="search">
         <h2><span style="color: var(--yellow-green-pale)">查</span><span>找</span></h2>
         <h4>查找我们的内容，立即购买。</h4>
-        <search class="head"></search>
+        <search class="margined"></search>
     </div>
     <div class="user">
         <h2>用户中心</h2>
         <h4>管理信息，个性化点餐体验。</h4>
+        <button class="margined">
+            <img src="@/assets/icons/我的_me.svg" alt="编辑个人信息">
+            <h5>编辑个人信息</h5>
+        </button>
     </div>
 </div>
 </template>
@@ -38,11 +42,6 @@ const catagoryStyles = ref([
 </script>
 
 <style scoped>
-.head
-{
-    margin-top: 10px;
-}
-
 .catagory, .search, .user
 {
     border-radius: 10px;
@@ -81,5 +80,36 @@ const catagoryStyles = ref([
 {
     padding: 20px;
     background: linear-gradient(var(--yellow-main), rgba(0,0,0,0));
+}
+
+.user > button
+{
+    color: var(--yellow-dim);
+
+    width: 100%;
+    height: 40px;
+}
+
+.user > button > *
+{
+    line-height: 40px;
+}
+
+.user > button img
+{
+    transform: translateX(-100px);
+    filter: drop-shadow(var(--yellow-main) 100px 0px 0px);
+}
+
+.user > button:hover
+{
+    color: #fff;
+
+    background-color: var(--yellow-dim);
+}
+
+.user > button:hover img
+{
+    filter: drop-shadow(#fff 100px 0px 0px);
 }
 </style>
