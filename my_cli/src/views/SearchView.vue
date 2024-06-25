@@ -1,5 +1,5 @@
 <template>
-<h2 class="margined">搜索结果：{{ searchInfo }}</h2>
+<h2 class="margin-1">搜索结果：{{ searchInfo }}</h2>
 </template>
 
 <script setup>

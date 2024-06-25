@@ -18,21 +18,16 @@
     src: url("@/assets/Oswald-Regular.ttf") format("opentype");
 }
 
-.margined
-{
-    margin-top: 10px;
-}
-</style>
-
-<!--模块-->
-<style>
 body
 {
     color: var(--green-dim);
 
     margin: 0;
 }
+</style>
 
+<!--模块-->
+<style>
 .out
 {
     display: flex;
@@ -105,11 +100,6 @@ h6
 
     margin: 0;
 }
-
-.white
-{
-    color: #fff;
-}
 </style>
 
 <!--按钮和输入框-->
@@ -122,7 +112,7 @@ button
     font-size: 20px;
     font-weight: 600;
    
-    height: 50px;
+    height: 48px;
     border-radius: 10px;
     border-width: 0;
     box-shadow: 0 2px 6px rgba(0,0,0,0.4);
@@ -137,18 +127,13 @@ button:hover
     transition: all 0.2s;
 }
 
-.center
-{
-    margin: auto;
-}
-
 input
 {
     color: var(--green-dim);
     font-size: 20px;
 
     width: 100%;
-    height: 40px;
+    height: 48px;
     border-radius: 10px;
     border-width: 0;
     padding-left: 10px;
@@ -198,5 +183,33 @@ body
     --min-view-height: 675px;
 
     --bar-height: 50px;
+}
+</style>
+
+<!--格式控制-->
+<style>
+.margin-1
+{
+    margin-top: 10px;
+}
+
+.margin-2
+{
+    margin-top: 20px;
+}
+
+.white
+{
+    color: #fff;
+}
+
+.center
+{
+    margin: auto;
+}
+
+.vertical-center
+{
+    margin: auto 0;
 }
 </style>
