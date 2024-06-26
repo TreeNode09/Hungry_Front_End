@@ -1,22 +1,19 @@
 <template>
-<h2 class="margine-1">你想做什么？</h2>
+<h2 class="margin-1">你想做什么？</h2>
 <div class="left catagory white">
     <h2><span style="color: var(--green-pale)">探</span><span>索美食</span></h2>
-    <h4>在数以百计的商家中发现精彩，寻找感兴趣的美食，探索更多可能。</h4>
-    <catagory 
-        v-for="catagoryStyle in catagoryStyles"
-        :catagoryStyle="catagoryStyle"
-    ></catagory>
+    <h6>在数以百计的商家中发现精彩，寻找感兴趣的美食，探索更多可能。</h6>
+    <catagory v-for="catagoryStyle in catagoryStyles" :catagoryStyle="catagoryStyle"></catagory>
 </div>
 <div class="right white">
     <div class="search">
         <h2><span style="color: var(--yellow-green-pale)">查</span><span>找</span></h2>
-        <h4>查找我们的内容，立即购买。</h4>
+        <h6>查找我们的内容，立即购买。</h6>
         <search class="margin-2"></search>
     </div>
     <div class="user">
         <h2>用户中心</h2>
-        <h4>管理信息，个性化点餐体验。</h4>
+        <h6>管理信息，个性化点餐体验。</h6>
         <button>
             <img src="@/assets/icons/我的_me.svg" alt="编辑个人信息">
             <span>编辑个人信息</span>
@@ -106,6 +103,8 @@ const catagoryStyles = ref([
 
 .user > button > img
 {
+    width: 24px;
+    height: 24px;
     margin: auto 0;
     
     transform: translateX(-100px);

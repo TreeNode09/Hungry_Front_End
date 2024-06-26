@@ -61,8 +61,8 @@ body
 h2
 {
     font-size: 32px;
-    line-height: 50px;
     font-weight: 600;
+    line-height: 50px;
 
     margin: 0 0 10px 0;
 }
@@ -79,8 +79,8 @@ h3
 
 h4
 {
-    font-size: 22px;
-    font-weight: 400;
+    font-size: 24px;
+    font-weight: 600;
 
     margin: 0;
 }
@@ -211,5 +211,10 @@ body
 .vertical-center
 {
     margin: auto 0;
+}
+
+.inline
+{
+    display: inline-block;
 }
 </style>

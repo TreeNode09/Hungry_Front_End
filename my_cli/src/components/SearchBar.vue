@@ -11,7 +11,7 @@ function searchInfo(){
     if(searchText.value !== ''){
         router.push({
             path: '/search',
-            query:{text: searchText.value}
+            query: {text: searchText.value}
     })
     }
 }
