@@ -11,18 +11,25 @@
 <script setup>
 import { ref } from 'vue'
 
+const emit = defineEmits(['updateCount'])
+defineExpose({clearCount})
+
 const count = ref(0)
 
 function add(){
     count.value++
+    emit('updateCount', count.value)
 }
 
 function remove(){
     count.value--
+    emit('updateCount', count.value)
+}
+
+function clearCount(){
+    count.value = 0
 }
 </script>
-
-
 
 <style scoped>
 button
