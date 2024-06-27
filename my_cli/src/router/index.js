@@ -16,7 +16,12 @@ const routes = [
     path: '/order',
     name: 'order', //点餐界面
     component: () => import('@/views/OrderView.vue')
-  }
+  },
+  {
+    path: '/bussinessList',
+    name: 'bussinessList', //商家列表界面
+    component: () => import('@/views/BussinessListView.vue')
+  },
 ]
 
 const router = createRouter({

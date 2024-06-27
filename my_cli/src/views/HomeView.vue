@@ -3,7 +3,7 @@
 <div class="left catagory white">
     <h2><span style="color: var(--green-pale)">探</span><span>索美食</span></h2>
     <h6>在数以百计的商家中发现精彩，寻找感兴趣的美食，探索更多可能。</h6>
-    <catagory v-for="catagoryStyle in catagoryStyles" :catagoryStyle="catagoryStyle"></catagory>
+    <catagory v-for="catagoryStyle in catagoryStyles" :catagoryStyle="catagoryStyle" @click="goToBussinessList(catagoryStyle)"></catagory>
 </div>
 <div class="right white">
     <div class="search">
@@ -38,16 +38,23 @@
 import { ref } from 'vue' 
 import catagory from '@/components/CatagoryButton.vue'
 
+const router = useRouter()
+
 const catagoryStyles = ref([
-    {img: require("@/assets/icons/三明治_sandwich.svg"), name: "速食简餐", color: "var(--yellow-green-main)", link: "商家选择页面"},
-    {img: require("@/assets/icons/火锅_hot-pot-one.svg"), name: "地方小吃", color: "var(--turquoise-main)", link: "商家选择页面"},
-    {img: require("@/assets/icons/面条_noodles.svg"), name: "米粉面馆", color: "var(--red-main)", link: "商家选择页面"},
-    {img: require("@/assets/icons/汉堡_hamburger-one.svg"), name: "汉堡披萨", color: "var(--yellow-dim)", link: "商家选择页面"},
-    {img: require("@/assets/icons/碗_bowl-one.svg"), name: "包子粥铺", color: "var(--orange-pale)", link: "商家选择页面"},
-    {img: require("@/assets/icons/火鸡_turkey.svg"), name: "炸鸡炸串", color: "var(--yellow-main)", link: "商家选择页面"},
-    {img: require("@/assets/icons/牛角面包_croissant.svg"), name: "早餐", color: "var(--orange-main)", link: "商家选择页面"},
-    {img: require("@/assets/icons/冰激凌_icecream-four.svg"), name: "甜品饮品", color: "var(--pink-main)", link: "商家选择页面"}
+    {img: require("@/assets/icons/三明治_sandwich.svg"), name: "速食简餐", color: "var(--yellow-green-main)", link: "商家列表页面"},
+    {img: require("@/assets/icons/火锅_hot-pot-one.svg"), name: "地方小吃", color: "var(--turquoise-main)", link: "商家列表页面"},
+    {img: require("@/assets/icons/面条_noodles.svg"), name: "米粉面馆", color: "var(--red-main)", link: "商家列表页面"},
+    {img: require("@/assets/icons/汉堡_hamburger-one.svg"), name: "汉堡披萨", color: "var(--yellow-dim)", link: "商家列表页面"},
+    {img: require("@/assets/icons/碗_bowl-one.svg"), name: "包子粥铺", color: "var(--orange-pale)", link: "商家列表页面"},
+    {img: require("@/assets/icons/火鸡_turkey.svg"), name: "炸鸡炸串", color: "var(--yellow-main)", link: "商家列表页面"},
+    {img: require("@/assets/icons/牛角面包_croissant.svg"), name: "早餐", color: "var(--orange-main)", link: "商家列表页面"},
+    {img: require("@/assets/icons/冰激凌_icecream-four.svg"), name: "甜品饮品", color: "var(--pink-main)", link: "商家列表页面"}
 ])
+
+const goToBussinessList = (catagoryStyle) => {
+    router.push({name: "BusinessList", params: {orderTypyId: catagoryStyle.id}})
+}
+
 </script>
 
 <style scoped>
