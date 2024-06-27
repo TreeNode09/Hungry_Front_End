@@ -3,7 +3,9 @@
 <div class="left catagory white">
     <h2><span style="color: var(--green-pale)">探</span><span>索美食</span></h2>
     <h6>在数以百计的商家中发现精彩，寻找感兴趣的美食，探索更多可能。</h6>
-    <catagory v-for="catagoryStyle in catagoryStyles" :catagoryStyle="catagoryStyle" @click="goToBussinessList(catagoryStyle)"></catagory>
+    <catagory v-for="catagoryStyle in catagoryStyles" :catagoryStyle="catagoryStyle"
+    @click="toCatagory(catagoryStyle)"
+    ></catagory>
 </div>
 <div class="right white">
     <div class="search">
@@ -38,22 +40,26 @@
 import { ref } from 'vue' 
 import { useRouter } from 'vue-router';
 import catagory from '@/components/CatagoryButton.vue'
+import search from '@/components/SearchBar.vue'
 
 const catagoryStyles = ref([
-    {img: require("@/assets/icons/三明治_sandwich.svg"), name: "速食简餐", id: 6,color: "var(--yellow-green-main)", link: "商家列表页面"},
-    {img: require("@/assets/icons/火锅_hot-pot-one.svg"), name: "地方小吃", id: 7,color: "var(--turquoise-main)", link: "商家列表页面"},
-    {img: require("@/assets/icons/面条_noodles.svg"), name: "米粉面馆", id: 8, color: "var(--red-main)", link: "商家列表页面"},
-    {img: require("@/assets/icons/汉堡_hamburger-one.svg"), name: "汉堡披萨", id: 4,color: "var(--yellow-dim)", link: "商家列表页面"},
-    {img: require("@/assets/icons/碗_bowl-one.svg"), name: "包子粥铺", id: 9,color: "var(--orange-pale)", link: "商家列表页面"},
-    {img: require("@/assets/icons/火鸡_turkey.svg"), name: "炸鸡炸串", id: 10,color: "var(--yellow-main)", link: "商家列表页面"},
-    {img: require("@/assets/icons/牛角面包_croissant.svg"), name: "早餐", id: 2,color: "var(--orange-main)", link: "商家列表页面"},
-    {img: require("@/assets/icons/冰激凌_icecream-four.svg"), name: "甜品饮品", id: 5,color: "var(--pink-main)", link: "商家列表页面"}
+    {type: 6, img: require("@/assets/icons/三明治_sandwich.svg"), name: "速食简餐", id: 6,color: "var(--yellow-green-main)", },
+    {type: 7, img: require("@/assets/icons/火锅_hot-pot-one.svg"), name: "地方小吃", id: 7,color: "var(--turquoise-main)"},
+    {type: 8, img: require("@/assets/icons/面条_noodles.svg"), name: "米粉面馆", id: 8, color: "var(--red-main)"},
+    {type: 4, img: require("@/assets/icons/汉堡_hamburger-one.svg"), name: "汉堡披萨", id: 4,color: "var(--yellow-dim)"},
+    {type: 9, img: require("@/assets/icons/碗_bowl-one.svg"), name: "包子粥铺", id: 9,color: "var(--orange-pale)"},
+    {type: 10, img: require("@/assets/icons/火鸡_turkey.svg"), name: "炸鸡炸串", id: 10,color: "var(--yellow-main)"},
+    {type: 2, img: require("@/assets/icons/牛角面包_croissant.svg"), name: "早餐", id: 2,color: "var(--orange-main)"},
+    {type: 5, img: require("@/assets/icons/冰激凌_icecream-four.svg"), name: "甜品饮品", id: 5,color: "var(--pink-main)"}
 ])
 
 const router = useRouter();
 
-const goToBussinessList = (catagoryStyle) => {
-    router.push({name: "bussinessList", params: {orderTypyId: catagoryStyle.id}})
+const toCatagory = (catagoryStyle) => {
+    router.push({
+        path: "/catagory",
+        query: {type: catagoryStyle.type}
+    })
 }
 
 </script>

@@ -31,7 +31,7 @@ function toOrder(){
 
     width: calc((100% - 40px) / 2);
     padding: 20px;
-    margin-top: 20px;
+    margin-bottom: 20px;
     margin-right: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.4);

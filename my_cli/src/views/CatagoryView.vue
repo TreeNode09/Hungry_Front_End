@@ -1,17 +1,49 @@
 <template>
-    <div>
-      <!-- 这里放置商家列表的 HTML 结构 -->
-       <h1>Hello World</h1>
+<header :style="{ '--bar-color': catagoryStyle.color }">
+    <div class="center">
+        <img :src="catagoryStyle.img" :alt="catagoryStyle.name">
     </div>
-  </template>
+    <div>
+        <h2 class="white">推荐商家：{{ catagoryStyle.name }}</h2>
+    </div>
+</header>
+<business v-for="result in results" :result="result"></business>
+<h4 class="margin-2">没找到想吃的？尝试搜索：<search></search></h4>
+</template>
   
-  <script>
-  export default {
-    name: 'BussinessListView',
-    // 这里放置组件的 JavaScript 逻辑
-  }
-  </script>
+<script setup>
+import { ref } from 'vue'
+import search from '@/components/SearchBar.vue'
+import business from '@/components/BusinessBar.vue'
+
+const catagoryStyle = ref({type: 6, img: require("@/assets/icons/三明治_sandwich.svg"), name: "速食简餐", color: "var(--yellow-green-main)"})
+const results = ref([
+    {img: require("@/assets/images/薯霸王薯条.jpg"), name: "薯霸王薯条", class: "美式快餐", start: 20, delivery: 5, businessId: 1, address: "湖北省武汉市洪山区珞瑜路1037号", explain: "免费中薯！"},
+    {img: require("@/assets/images/薯霸王薯条.jpg"), name: "薯霸王薯条", class: "美式快餐", start: 20, delivery: 5, businessId: 1, address: "湖北省武汉市洪山区珞瑜路1037号", explain: "免费中薯！"}
+])
+
+</script>
   
-  <style scoped>
-  /* 这里放置组件的 CSS 样式 */
-  </style>
+<style scoped>
+header
+{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    height: 200px;
+    padding-left: 20px;
+    margin-bottom: 20px;
+
+    background: linear-gradient(rgba(0,0,0,0), var(--bar-color))
+}
+
+header img
+{
+    width: 100px;
+    height: 100px;
+
+    transform: translateY(-200px);
+    filter: drop-shadow(#fff 0px 200px 0px);
+}
+</style>

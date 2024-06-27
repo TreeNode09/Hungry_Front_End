@@ -14,7 +14,6 @@ app.use(store).use(router);
 // 注册全局组件
 app.component('hungry-header', Header); //标题栏
 app.component('hungry-main', MainArea); //主页框
-app.component('search', SearchBar);     //搜索栏
 
 app.mount('#app');
 
