@@ -35,7 +35,7 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import food from '@/components/FoodBar.vue'
-import cart from '@/components/CartElement.vue'
+import cart from '@/components/CartFoodBar.vue'
 
 const business = JSON.parse(useRoute().query.business)
 const foods = ref([
