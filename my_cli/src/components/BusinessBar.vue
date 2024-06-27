@@ -1,12 +1,12 @@
 <template>
 <div class="bar" @click="toOrder()">
     <div class="left">
-        <img :src="result.result.img" :alt="result.result.name">
+        <img :src="result.img" :alt="result.name">
     </div>
     <div class="left">
-        <h6>{{ result.result.class }}</h6>
-        <h4>{{ result.result.name }}</h4>
-        <h6 class="margin-1">￥{{ result.result.start }}起送，配送费￥{{ result.result.delivery }}</h6>
+        <h6>{{ result.class }}</h6>
+        <h4>{{ result.name }}</h4>
+        <h6 class="margin-1">￥{{ result.start }}起送，配送费￥{{ result.delivery }}</h6>
     </div>
 </div>
 </template>
@@ -14,12 +14,12 @@
 <script setup>
 import router from '@/router'
 
-const result = defineProps(['result'])
+const prop = defineProps(['result'])
 
 function toOrder(){
     router.push({
         path: '/order',
-        query: {business: JSON.stringify(result.result)}
+        query: {business: JSON.stringify(prop.result)}
     })
 }
 </script>

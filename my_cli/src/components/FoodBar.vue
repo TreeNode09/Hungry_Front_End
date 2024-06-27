@@ -7,14 +7,29 @@
         <h4>{{ food.name }}</h4>
         <h6>{{ food.explain }}</h6>
         <div class="left margin-1"><h5>￥{{ food.prize }}</h5></div>
-        <div class="right add margin-1"><add></add></div>
+        <div class="right add margin-1">
+            <add @updateCount="updateFood" ref="addButton"></add>
+        </div>
     </div>
 </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import add from '@/components/AddButton.vue'
-defineProps(['food'])
+
+const prop = defineProps(['food'])
+const emit = defineEmits(['updateFood'])
+defineExpose({clearFood})
+
+const updateFood = (count) => {
+    emit('updateFood', {id: prop.food.id, name: prop.food.name, prize: prop.food.prize, count: count})
+}
+const addButton = ref("")
+
+function clearFood(){
+    addButton.value.clearCount()
+}
 </script>
 
 <style scoped>
@@ -24,7 +39,7 @@ defineProps(['food'])
 
     width: calc((100% - 40px) / 2);
     padding: 20px;
-    margin-top: 20px;
+    margin-bottom: 20px;
     margin-right: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.4);
