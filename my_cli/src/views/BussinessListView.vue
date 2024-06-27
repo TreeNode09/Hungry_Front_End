@@ -1,6 +1,7 @@
 <template>
     <div>
       <!-- 这里放置商家列表的 HTML 结构 -->
+       <h1>Hello World</h1>
     </div>
   </template>
   

@@ -36,6 +36,7 @@
 
 <script setup>
 import { ref } from 'vue' 
+import { useRouter } from 'vue-router';
 import catagory from '@/components/CatagoryButton.vue'
 
 const catagoryStyles = ref([
@@ -49,8 +50,10 @@ const catagoryStyles = ref([
     {img: require("@/assets/icons/冰激凌_icecream-four.svg"), name: "甜品饮品", id: 5,color: "var(--pink-main)", link: "商家列表页面"}
 ])
 
+const router = useRouter();
+
 const goToBussinessList = (catagoryStyle) => {
-    router.push({name: "BusinessList", params: {orderTypyId: catagoryStyle.id}})
+    router.push({name: "bussinessList", params: {orderTypyId: catagoryStyle.id}})
 }
 
 </script>
