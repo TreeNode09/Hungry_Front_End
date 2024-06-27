@@ -1,11 +1,13 @@
 <template>
 <h2 class="margin-1">搜索结果：{{ searchInfo }}</h2>
+<search></search>
 <bussiness v-for="result in results" :result="result"></bussiness>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+import search from '@/components/SearchBar.vue'
 import bussiness from '@/components/BusinessBar.vue'
 
 const searchInfo = ref(useRoute().query.text)
