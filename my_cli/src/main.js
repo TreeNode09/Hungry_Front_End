@@ -16,7 +16,7 @@ app.component('hungry-main', MainArea); //主页框
 
 app.mount('#app');
 
-Vue.prototype.$axios = axios
-Vue.prototype.$router = router
+app.config.globalProperties.$axios = axios;
+app.config.globalProperties.$router = router;
 
 axios.defaults.baseURL = 'http://localhost:8001'

@@ -3,7 +3,6 @@
     <div class="center">
         <img :src="categoryStyle.img" :alt="categoryStyle.name">
     </div>
-  <h2>{{ results }}</h2>
     <div>
         <h2 class="white">推荐商家：{{ categoryStyle.name }}</h2>
     </div>
@@ -26,7 +25,7 @@ const businessTypeId = useRoute().query.type
 onMounted(() =>{
     axios.get(`http://localhost:8001/business/${businessTypeId}`, {
 
-    }).then(response => {results.value = JSON.parse(response)})
+    }).then(response => {results.value = response.data.data.records})
     .catch(error => {alert(error)})
 })
 </script>

@@ -5,8 +5,8 @@
     </div>
     <div class="left">
         <h6>{{ result.class }}</h6>
-        <h4>{{ result.name }}</h4>
-        <h6 class="margin-1">￥{{ result.start }}起送，配送费￥{{ result.delivery }}</h6>
+        <h4>{{ result.businessName }}</h4>
+        <h6 class="margin-1">￥{{ result.startPrice }}起送，配送费￥{{ result.deliveryPrice }}</h6>
     </div>
 </div>
 </template>
