@@ -1,7 +1,7 @@
 <template>
 <div class="bar">
     <div class="left"><h6>{{ food.name }} x{{ food.count }}</h6></div>
-    <div class="right"><h5>￥{{ (food.prize * food.count).toFixed(2) }}</h5></div>
+    <h5 class="right">￥{{ food.totalPrize }}</h5>
 </div>
 </template>
 
@@ -12,9 +12,6 @@ const prop = defineProps(['food'])
 <style scoped>
 .bar
 {
-    height: 50px;
-    padding: 5px 20px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ccc;
+    height: 40px;
 }
 </style>

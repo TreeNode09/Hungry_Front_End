@@ -16,13 +16,20 @@ const routes = [
   {
     path: '/order',
     name: 'order', //点餐界面
-    component: () => import('@/views/OrderView.vue')
+    component: () => import('@/views/OrderView.vue'),
+    props: (route) => ({ business: route.query.business })
   },
   {
-    path: '/bussinessList',
-    name: 'bussinessList', //商家列表界面
-    component: () => import('@/views/BussinessListView.vue')
+    path: '/category',
+    name: 'category', //商家列表界面
+    component: () => import('@/views/CategoryView.vue')
   },
+  {
+    path: '/pay',
+    name: 'pay', //支付界面
+    component: () => import('@/views/PayView.vue')
+  }
+]
   {
     path: '/order-history',
     name: 'OrderHistory',

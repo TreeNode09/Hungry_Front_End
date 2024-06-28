@@ -1,9 +1,11 @@
 <template>
 <h2 class="margin-1">你想做什么？</h2>
-<div class="left catagory white">
+<div class="left category white">
     <h2><span style="color: var(--green-pale)">探</span><span>索美食</span></h2>
     <h6>在数以百计的商家中发现精彩，寻找感兴趣的美食，探索更多可能。</h6>
-    <catagory v-for="catagoryStyle in catagoryStyles" :catagoryStyle="catagoryStyle" @click="goToBussinessList(catagoryStyle)"></catagory>
+    <category v-for="categoryStyle in categoryStyles" :categoryStyle="categoryStyle"
+    @click="tocategory(categoryStyle.type)"
+    ></category>
 </div>
 <div class="right white">
     <div class="search">
@@ -36,29 +38,34 @@
 
 <script setup>
 import { ref } from 'vue'
-import catagory from '@/components/CatagoryButton.vue'
-import { useRouter } from 'vue-router';
+import router from '@/router'
+import category from '@/components/CategoryButton.vue'
+import search from '@/components/SearchBar.vue'
+import {useRouter} from 'vue-router';
 
 const router = useRouter();
-
 function goToOrderHistory(){
   router.push('/order-history');
 }
 
-const catagoryStyles = ref([
-    {img: require("@/assets/icons/三明治_sandwich.svg"), name: "速食简餐", id: 6,color: "var(--yellow-green-main)", link: "商家列表页面"},
-    {img: require("@/assets/icons/火锅_hot-pot-one.svg"), name: "地方小吃", id: 7,color: "var(--turquoise-main)", link: "商家列表页面"},
-    {img: require("@/assets/icons/面条_noodles.svg"), name: "米粉面馆", id: 8, color: "var(--red-main)", link: "商家列表页面"},
-    {img: require("@/assets/icons/汉堡_hamburger-one.svg"), name: "汉堡披萨", id: 4,color: "var(--yellow-dim)", link: "商家列表页面"},
-    {img: require("@/assets/icons/碗_bowl-one.svg"), name: "包子粥铺", id: 9,color: "var(--orange-pale)", link: "商家列表页面"},
-    {img: require("@/assets/icons/火鸡_turkey.svg"), name: "炸鸡炸串", id: 10,color: "var(--yellow-main)", link: "商家列表页面"},
-    {img: require("@/assets/icons/牛角面包_croissant.svg"), name: "早餐", id: 2,color: "var(--orange-main)", link: "商家列表页面"},
-    {img: require("@/assets/icons/冰激凌_icecream-four.svg"), name: "甜品饮品", id: 5,color: "var(--pink-main)", link: "商家列表页面"}
+const categoryStyles = ref([
+    {type: 6, img: require("@/assets/icons/三明治_sandwich.svg"), name: "速食简餐",color: "var(--yellow-green-main)"},
+    {type: 7, img: require("@/assets/icons/火锅_hot-pot-one.svg"), name: "地方小吃",color: "var(--turquoise-main)"},
+    {type: 8, img: require("@/assets/icons/面条_noodles.svg"), name: "米粉面馆", color: "var(--red-main)"},
+    {type: 4, img: require("@/assets/icons/汉堡_hamburger-one.svg"), name: "汉堡披萨",color: "var(--yellow-dim)"},
+    {type: 9, img: require("@/assets/icons/碗_bowl-one.svg"), name: "包子粥铺",color: "var(--orange-pale)"},
+    {type: 10, img: require("@/assets/icons/火鸡_turkey.svg"), name: "炸鸡炸串",color: "var(--yellow-main)"},
+    {type: 2, img: require("@/assets/icons/牛角面包_croissant.svg"), name: "早餐",color: "var(--orange-main)"},
+    {type: 5, img: require("@/assets/icons/冰激凌_icecream-four.svg"), name: "甜品饮品",color: "var(--pink-main)"}
 ])
 
-const goToBussinessList = (catagoryStyle) => {
-    router.push({name: "BusinessList", params: {orderTypyId: catagoryStyle.id}})
+function tocategory(type){
+    router.push({
+        path: "/category",
+        query: {type: type}
+    })
 }
+
 </script>
 
 <style scoped>
@@ -75,23 +82,24 @@ button > img {
   margin-right: 8px;
 }
 
-.catagory, .search, .user
+.category, .search, .user
 {
     border-radius: 10px;
     border-width: 0;
-
-    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);  
 }
 
-.catagory
+.category
 {
     width: calc(60% - 20px);
+    max-height: calc(100% - 90px);
     padding: 20px 0 20px 20px;
 
     background: linear-gradient(var(--green-main), rgba(0,0,0,0));
 }
 
-.catagory > h4
+.category > h6
 {
     padding-right: 20px;
 }
@@ -122,7 +130,7 @@ button > img {
 
     width: 100%;
     padding-left: 10px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .user > button > img
@@ -130,7 +138,7 @@ button > img {
     width: 24px;
     height: 24px;
     margin: auto 0;
-
+    
     transform: translateX(-100px);
     filter: drop-shadow(var(--yellow-main) 100px 0px 0px);
 }
