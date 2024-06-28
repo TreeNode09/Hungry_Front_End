@@ -69,18 +69,18 @@ function tocategory(type){
 </script>
 
 <style scoped>
-button {
+/*button {
   border: none;
   background: none;
   padding: 0;
   cursor: pointer;
   display: flex;
-  align-items: center;
+  //align-items: center;
 }
 
 button > img {
   margin-right: 8px;
-}
+}*/
 
 .category, .search, .user
 {
