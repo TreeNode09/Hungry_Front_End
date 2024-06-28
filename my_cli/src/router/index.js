@@ -1,5 +1,6 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue';
+import OrderHistory from '../components/OrderHistory.vue';
 
 const routes = [
   {
@@ -22,11 +23,16 @@ const routes = [
     name: 'bussinessList', //商家列表界面
     component: () => import('@/views/BussinessListView.vue')
   },
-]
+  {
+    path: '/order-history',
+    name: 'OrderHistory',
+    component: OrderHistory,
+  },
+];
 
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes
-})
+  history: createWebHistory(process.env.BASE_URL),
+  routes,
+});
 
-export default router
+export default router;

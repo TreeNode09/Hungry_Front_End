@@ -1,5 +1,5 @@
 <template>
-<hungry-header></hungry-header>
+  <hungry-header></hungry-header>
 <hungry-main>
     <router-view/>
 </hungry-main>
@@ -218,3 +218,9 @@ body
     display: inline-block;
 }
 </style>
+
+<script>
+export default {
+  name: 'App'
+}
+</script>

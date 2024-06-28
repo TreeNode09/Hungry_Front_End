@@ -22,7 +22,7 @@
             <img src="@/assets/icons/本地_local-two.svg" alt="管理收货地址">
             <span>管理收货地址</span>
         </button>
-        <button>
+        <button @click="goToOrderHistory">
             <img src="@/assets/icons/历史记录_history.svg" alt="查看历史订单">
             <span>查看历史订单</span>
         </button>
@@ -35,8 +35,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue' 
+import { ref } from 'vue'
 import catagory from '@/components/CatagoryButton.vue'
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+function goToOrderHistory(){
+  router.push('/order-history');
+}
 
 const catagoryStyles = ref([
     {img: require("@/assets/icons/三明治_sandwich.svg"), name: "速食简餐", id: 6,color: "var(--yellow-green-main)", link: "商家列表页面"},
@@ -52,16 +59,28 @@ const catagoryStyles = ref([
 const goToBussinessList = (catagoryStyle) => {
     router.push({name: "BusinessList", params: {orderTypyId: catagoryStyle.id}})
 }
-
 </script>
 
 <style scoped>
+button {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+button > img {
+  margin-right: 8px;
+}
+
 .catagory, .search, .user
 {
     border-radius: 10px;
     border-width: 0;
-    
-    box-shadow: 0 2px 6px rgba(0,0,0,0.4);  
+
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 
 .catagory
@@ -111,7 +130,7 @@ const goToBussinessList = (catagoryStyle) => {
     width: 24px;
     height: 24px;
     margin: auto 0;
-    
+
     transform: translateX(-100px);
     filter: drop-shadow(var(--yellow-main) 100px 0px 0px);
 }
