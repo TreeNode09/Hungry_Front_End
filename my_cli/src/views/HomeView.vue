@@ -43,7 +43,7 @@ import category from '@/components/CategoryButton.vue'
 import search from '@/components/SearchBar.vue'
 import {useRouter} from 'vue-router';
 
-const router = useRouter();
+const urouter = useRouter();
 function goToOrderHistory(){
   router.push('/order-history');
 }
