@@ -136,6 +136,7 @@ input
     color: var(--green-dim);
     font-size: 20px;
 
+    width: 100%;
     height: 48px;
     border-radius: 10px;
     border-width: 0;

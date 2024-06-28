@@ -1,8 +1,6 @@
 <template>
-<header class="margin-1">
-    <div class="left"><h2>搜索结果：{{ searchInfo }}</h2></div>
-    <div class="right"><search @update="update"></search></div>
-</header>
+<h2 class="margin-1">搜索结果：{{ searchInfo }}</h2>
+<search @update="update" class="search-bar"></search>
 <business v-for="result in results" :result="result"></business>
 </template>
 
@@ -19,13 +17,20 @@ const watcher = watch(temp.value, () => {
 })
 const results = ref([
     {img: require("@/assets/images/薯霸王薯条.jpg"), name: "薯霸王薯条", class: "美式快餐", start: 20, delivery: 5, businessId: 1, address: "湖北省武汉市洪山区珞瑜路1037号", explain: "免费中薯！"},
+    {img: require("@/assets/images/薯霸王薯条.jpg"), name: "薯霸王薯条", class: "美式快餐", start: 20, delivery: 5, businessId: 1, address: "湖北省武汉市洪山区珞瑜路1037号", explain: "免费中薯！"},
+    {img: require("@/assets/images/薯霸王薯条.jpg"), name: "薯霸王薯条", class: "美式快餐", start: 20, delivery: 5, businessId: 1, address: "湖北省武汉市洪山区珞瑜路1037号", explain: "免费中薯！"},
+    {img: require("@/assets/images/薯霸王薯条.jpg"), name: "薯霸王薯条", class: "美式快餐", start: 20, delivery: 5, businessId: 1, address: "湖北省武汉市洪山区珞瑜路1037号", explain: "免费中薯！"},
+    {img: require("@/assets/images/薯霸王薯条.jpg"), name: "薯霸王薯条", class: "美式快餐", start: 20, delivery: 5, businessId: 1, address: "湖北省武汉市洪山区珞瑜路1037号", explain: "免费中薯！"},
+    {img: require("@/assets/images/薯霸王薯条.jpg"), name: "薯霸王薯条", class: "美式快餐", start: 20, delivery: 5, businessId: 1, address: "湖北省武汉市洪山区珞瑜路1037号", explain: "免费中薯！"},
+    {img: require("@/assets/images/薯霸王薯条.jpg"), name: "薯霸王薯条", class: "美式快餐", start: 20, delivery: 5, businessId: 1, address: "湖北省武汉市洪山区珞瑜路1037号", explain: "免费中薯！"},
+    {img: require("@/assets/images/薯霸王薯条.jpg"), name: "薯霸王薯条", class: "美式快餐", start: 20, delivery: 5, businessId: 1, address: "湖北省武汉市洪山区珞瑜路1037号", explain: "免费中薯！"},
     {img: require("@/assets/images/薯霸王薯条.jpg"), name: "薯霸王薯条", class: "美式快餐", start: 20, delivery: 5, businessId: 1, address: "湖北省武汉市洪山区珞瑜路1037号", explain: "免费中薯！"}
 ])
 </script>
 
 <style scoped>
-header
+.search-bar
 {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 </style>
