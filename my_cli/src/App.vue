@@ -167,6 +167,7 @@ body
     --orange-pale: #C0AB9A;
     --orange-main: #E99D42;
 
+    --yellow-pale: #FFED85;
     --yellow-main: #F2B800;
     --yellow-dim: #A16222;
     

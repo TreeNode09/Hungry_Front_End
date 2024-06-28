@@ -1,17 +1,17 @@
 <template>
-<button :style="{ '--hover-color': catagoryStyle.color }" class="inline">
+<button :style="{ '--hover-color': categoryStyle.color }" class="inline">
     <div class="center">
         <div class="icon">
-            <img :src="catagoryStyle.img" :alt="catagoryStyle.name">
+            <img :src="categoryStyle.img" :alt="categoryStyle.name">
         </div>
-        <h5>{{ catagoryStyle.name }}</h5>
+        <h5>{{ categoryStyle.name }}</h5>
     </div>
 </button>
    
 </template>
 
 <script setup>
-defineProps(['catagoryStyle'])
+defineProps(['categoryStyle'])
 </script>
 
 <style scoped>

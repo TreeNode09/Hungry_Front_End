@@ -18,10 +18,15 @@ const routes = [
     component: () => import('@/views/OrderView.vue')
   },
   {
-    path: '/catagory',
-    name: 'catagory', //商家列表界面
-    component: () => import('@/views/CatagoryView.vue')
+    path: '/category',
+    name: 'category', //商家列表界面
+    component: () => import('@/views/CategoryView.vue')
   },
+  {
+    path: '/pay',
+    name: 'pay', //支付界面
+    component: () => import('@/views/PayView.vue')
+  }
 ]
 
 const router = createRouter({

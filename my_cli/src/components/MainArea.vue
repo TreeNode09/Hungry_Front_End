@@ -11,7 +11,11 @@ import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router';
 
 const outer = ref() //路由更新时重置滚动位置
-const watcher = watch(useRoute(), () => {if(outer.value) {outer.value.scrollTo(0,0)}})
+const watcher = watch(useRoute(), () => {
+    if(outer.value){
+        outer.value.scrollTo(0,0)
+    }
+})
 </script>
 
 <style scoped>

@@ -16,7 +16,7 @@ import router from '@/router'
 
 const prop = defineProps(['result'])
 
-function toOrder(){
+const toOrder = () => {
     router.push({
         path: '/order',
         query: {business: JSON.stringify(prop.result)}

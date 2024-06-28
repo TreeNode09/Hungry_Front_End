@@ -1,10 +1,10 @@
 <template>
-<header :style="{ '--bar-color': catagoryStyle.color }">
+<header :style="{ '--bar-color': categoryStyle.color }">
     <div class="center">
-        <img :src="catagoryStyle.img" :alt="catagoryStyle.name">
+        <img :src="categoryStyle.img" :alt="categoryStyle.name">
     </div>
     <div>
-        <h2 class="white">推荐商家：{{ catagoryStyle.name }}</h2>
+        <h2 class="white">推荐商家：{{ categoryStyle.name }}</h2>
     </div>
 </header>
 <business v-for="result in results" :result="result"></business>
@@ -17,7 +17,7 @@ import { ref } from 'vue'
 import search from '@/components/SearchBar.vue'
 import business from '@/components/BusinessBar.vue'
 
-const catagoryStyle = ref({type: 6, img: require("@/assets/icons/三明治_sandwich.svg"), name: "速食简餐", color: "var(--yellow-green-main)"})
+const categoryStyle = ref({type: 6, img: require("@/assets/icons/三明治_sandwich.svg"), name: "速食简餐", color: "var(--yellow-green-main)"})
 const results = ref([
     {img: require("@/assets/images/薯霸王薯条.jpg"), name: "薯霸王薯条", class: "美式快餐", start: 20, delivery: 5, businessId: 1, address: "湖北省武汉市洪山区珞瑜路1037号", explain: "免费中薯！"},
     {img: require("@/assets/images/薯霸王薯条.jpg"), name: "薯霸王薯条", class: "美式快餐", start: 20, delivery: 5, businessId: 1, address: "湖北省武汉市洪山区珞瑜路1037号", explain: "免费中薯！"},

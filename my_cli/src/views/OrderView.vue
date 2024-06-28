@@ -26,13 +26,14 @@
     </div>
     <footer>
         <button v-if="isEmpty" class="center disabled"><div class="center">确认订单</div></button>
-        <button v-else class="center"><div class="center">确认订单</div></button>
+        <button v-else class="center" @click="toPay"><div class="center">确认订单</div></button>
     </footer>
 </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import router from '@/router'
 import { useRoute } from 'vue-router'
 import food from '@/components/FoodBar.vue'
 import cart from '@/components/CartFoodBar.vue'
@@ -78,6 +79,13 @@ function emptyCart(){
     for(var i = 0; i < foodList.value.length; i++){
         foodList.value[i].clearFood()
     }
+}
+
+const toPay = () => {
+    router.push({
+        path: '/pay',
+        query: {}
+    })
 }
 </script>
 
