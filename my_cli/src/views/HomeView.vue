@@ -39,21 +39,22 @@
 <script setup>
 import { ref } from 'vue'
 import router from '@/router'
+import axios from 'axios'
 import category from '@/components/CategoryButton.vue'
 import search from '@/components/SearchBar.vue'
 
 const categoryStyles = ref([
-    {type: 6, img: require("@/assets/icons/三明治_sandwich.svg"), name: "速食简餐", id: 6,color: "var(--yellow-green-main)", },
-    {type: 7, img: require("@/assets/icons/火锅_hot-pot-one.svg"), name: "地方小吃", id: 7,color: "var(--turquoise-main)"},
-    {type: 8, img: require("@/assets/icons/面条_noodles.svg"), name: "米粉面馆", id: 8, color: "var(--red-main)"},
-    {type: 4, img: require("@/assets/icons/汉堡_hamburger-one.svg"), name: "汉堡披萨", id: 4,color: "var(--yellow-dim)"},
-    {type: 9, img: require("@/assets/icons/碗_bowl-one.svg"), name: "包子粥铺", id: 9,color: "var(--orange-pale)"},
-    {type: 10, img: require("@/assets/icons/火鸡_turkey.svg"), name: "炸鸡炸串", id: 10,color: "var(--yellow-main)"},
-    {type: 2, img: require("@/assets/icons/牛角面包_croissant.svg"), name: "早餐", id: 2,color: "var(--orange-main)"},
-    {type: 5, img: require("@/assets/icons/冰激凌_icecream-four.svg"), name: "甜品饮品", id: 5,color: "var(--pink-main)"}
+    {type: 6, img: require("@/assets/icons/三明治_sandwich.svg"), name: "速食简餐",color: "var(--yellow-green-main)"},
+    {type: 7, img: require("@/assets/icons/火锅_hot-pot-one.svg"), name: "地方小吃",color: "var(--turquoise-main)"},
+    {type: 8, img: require("@/assets/icons/面条_noodles.svg"), name: "米粉面馆", color: "var(--red-main)"},
+    {type: 4, img: require("@/assets/icons/汉堡_hamburger-one.svg"), name: "汉堡披萨",color: "var(--yellow-dim)"},
+    {type: 9, img: require("@/assets/icons/碗_bowl-one.svg"), name: "包子粥铺",color: "var(--orange-pale)"},
+    {type: 10, img: require("@/assets/icons/火鸡_turkey.svg"), name: "炸鸡炸串",color: "var(--yellow-main)"},
+    {type: 2, img: require("@/assets/icons/牛角面包_croissant.svg"), name: "早餐",color: "var(--orange-main)"},
+    {type: 5, img: require("@/assets/icons/冰激凌_icecream-four.svg"), name: "甜品饮品",color: "var(--pink-main)"}
 ])
 
-const tocategory = (type) => {
+function tocategory(type){
     router.push({
         path: "/category",
         query: {type: type}
