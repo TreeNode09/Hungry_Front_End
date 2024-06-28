@@ -3,6 +3,7 @@
     <div class="center">
         <img :src="categoryStyle.img" :alt="categoryStyle.name">
     </div>
+  <h2>{{ results }}</h2>
     <div>
         <h2 class="white">推荐商家：{{ categoryStyle.name }}</h2>
     </div>
@@ -14,18 +15,17 @@
   
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import axios from 'axios'
 import search from '@/components/SearchBar.vue'
 import business from '@/components/BusinessBar.vue'
 
 const categoryStyle = ref({type: 6, img: require("@/assets/icons/三明治_sandwich.svg"), name: "速食简餐", color: "var(--yellow-green-main)"})
 const results = ref([])
-
+const businessTypeId = useRoute().query.type
 onMounted(() =>{
-    axios.get('/business', {
-        params: {
-            type: 1
-        }
+    axios.get(`http://localhost:8001/business/${businessTypeId}`, {
+
     }).then(response => {results.value = JSON.parse(response)})
     .catch(error => {alert(error)})
 })
