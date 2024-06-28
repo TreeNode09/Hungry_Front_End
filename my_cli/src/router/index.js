@@ -15,7 +15,8 @@ const routes = [
   {
     path: '/order',
     name: 'order', //点餐界面
-    component: () => import('@/views/OrderView.vue')
+    component: () => import('@/views/OrderView.vue'),
+    props: (route) => ({ business: route.query.business })
   },
   {
     path: '/category',
