@@ -28,7 +28,7 @@ const routes = [
     path: '/pay',
     name: 'pay', //支付界面
     component: () => import('@/views/PayView.vue')
-  }
+  },
 ]
   {
     path: '/order-history',
