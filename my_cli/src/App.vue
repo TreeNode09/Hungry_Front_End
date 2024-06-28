@@ -5,6 +5,10 @@
 </hungry-main>
 </template>
 
+<script setup>
+
+</script>
+
 <!--杂项-->
 <style>
 *

@@ -19,9 +19,9 @@ const routes = [
     props: (route) => ({ business: route.query.business })
   },
   {
-    path: '/bussinessList',
-    name: 'bussinessList', //商家列表界面
-    component: () => import('@/views/BussinessListView.vue'),
+    path: '/catagory',
+    name: 'catagory', //商家列表界面
+    component: () => import('@/views/CatagoryView.vue'),
     props: (route) => ({ catagory: route.query.catagory })
   },
 ]

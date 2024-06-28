@@ -13,8 +13,7 @@ const prop = defineProps(['food'])
 .bar
 {
     height: 50px;
-    padding: 5px 20px;
-    margin-bottom: 10px;
+    padding: 10px 20px 5px 20px;
     border-bottom: 1px solid #ccc;
 }
 </style>
