@@ -39,7 +39,6 @@
 <script setup>
 import { ref } from 'vue'
 import router from '@/router'
-import axios from 'axios'
 import category from '@/components/CategoryButton.vue'
 import search from '@/components/SearchBar.vue'
 

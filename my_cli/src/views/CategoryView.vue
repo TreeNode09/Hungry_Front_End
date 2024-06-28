@@ -22,8 +22,11 @@ const categoryStyle = ref({type: 6, img: require("@/assets/icons/三明治_sandw
 const results = ref([])
 
 onMounted(() =>{
-    axios.get(`/business?type=${1}`)
-    .then(response => {results.value = JSON.parse(response)})
+    axios.get('/business', {
+        params: {
+            type: 1
+        }
+    }).then(response => {results.value = JSON.parse(response)})
     .catch(error => {alert(error)})
 })
 </script>
