@@ -53,7 +53,8 @@ const catagoryStyles = ref([
 const router = useRouter();
 
 const goToBussinessList = (catagoryStyle) => {
-    router.push({name: "bussinessList", params: {orderTypyId: catagoryStyle.id}})
+    console.log("分类 ID: ", catagoryStyle.id); // 输出分类 ID 到控制台
+    router.push({name: "bussinessList", query: {catagory: catagoryStyle.id}})
 }
 
 </script>

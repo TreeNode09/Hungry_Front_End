@@ -11,7 +11,7 @@
             <h6>介绍：{{ business.explain }}</h6>
         </div>
     </div>
-    <food v-for="food in foods" :food="food" @updateFood="updateFood" ref="foodList"></food>
+    <food v-for="food in foods" :key="food.id" :food="food" @updateFood="updateFood" ref="foodList"></food>
 </div>
 <div class="right cart">
     <header>
@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import food from '@/components/FoodBar.vue'
 import cart from '@/components/CartElement.vue'
@@ -49,6 +49,15 @@ const foods = ref([
     {id: 8, img: require("@/assets/images/薯霸王薯条.jpg"), name: "超级薯条", explain: "超级好吃", prize: 34.99},
     {id: 9, img: require("@/assets/images/薯霸王薯条.jpg"), name: "超级薯条", explain: "超级好吃", prize: 34.99}
 ])
+onMounted(async()=>{
+    try{
+        const response = await fetch('/foods')
+        const data = await response.json()
+        foods.value = data
+    }catch(error){
+        console.log(error)
+    }
+})
 const cartFoods = ref([])
 const isEmpty = ref(true)   //购物车是否为空，控制购物车按钮样式
 
