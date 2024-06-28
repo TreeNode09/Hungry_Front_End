@@ -1,7 +1,7 @@
 <template>
 <div class="bar" @click="toOrder()">
     <div class="left">
-        <img :src="result.img" :alt="result.name">
+        <img :src="result.businessImg" :alt="result.businessName">
     </div>
     <div class="left">
         <h6>{{ result.class }}</h6>
