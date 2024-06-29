@@ -26,6 +26,13 @@ const results = ref([
     {img: require("@/assets/images/薯霸王薯条.jpg"), name: "薯霸王薯条", class: "美式快餐", start: 20, delivery: 5, businessId: 1, address: "湖北省武汉市洪山区珞瑜路1037号", explain: "免费中薯！"},
     {img: require("@/assets/images/薯霸王薯条.jpg"), name: "薯霸王薯条", class: "美式快餐", start: 20, delivery: 5, businessId: 1, address: "湖北省武汉市洪山区珞瑜路1037号", explain: "免费中薯！"}
 ])
+
+onMounted(() =>{
+    axios.get(`http://localhost:8001/business/${businessTypeId}`, {
+
+    }).then(response => {results.value = response.data.data.records})
+    .catch(error => {alert(error)})
+})
 </script>
 
 <style scoped>
