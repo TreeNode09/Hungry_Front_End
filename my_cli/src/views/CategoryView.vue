@@ -22,6 +22,7 @@ import business from '@/components/BusinessBar.vue'
 const categoryStyle = ref({type: 6, img: require("@/assets/icons/三明治_sandwich.svg"), name: "速食简餐", color: "var(--yellow-green-main)"})
 const results = ref([])
 const businessTypeId = useRoute().query.type
+
 onMounted(() =>{
     axios.get(`http://localhost:8001/business/${businessTypeId}`, {
 

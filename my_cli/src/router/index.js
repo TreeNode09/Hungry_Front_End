@@ -1,12 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue';
-import OrderHistory from '../components/OrderHistory.vue';
+import Welcome from '@/views/WelcomeView.vue'
+import OrderHistory from '../components/OrderHistory.vue'
 
 const routes = [
   {
     path: '/',
+    name: 'Welcome',  //初始界面
+    component: Welcome
+  },
+  {
+    path: '/home',
     name: 'Home', //主菜单
-    component: HomeView
+    component: () => import('@/views/HomeView.vue')
   },
   {
     path: '/search',

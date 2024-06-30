@@ -4,7 +4,7 @@
     <h2><span style="color: var(--green-pale)">探</span><span>索美食</span></h2>
     <h6>在数以百计的商家中发现精彩，寻找感兴趣的美食，探索更多可能。</h6>
     <category v-for="categoryStyle in categoryStyles" :categoryStyle="categoryStyle"
-    @click="tocategory(categoryStyle.type)"
+    @click="toCategory(categoryStyle.type)"
     ></category>
 </div>
 <div class="right white">
@@ -24,7 +24,7 @@
             <img src="@/assets/icons/本地_local-two.svg" alt="管理收货地址">
             <span>管理收货地址</span>
         </button>
-        <button @click="goToOrderHistory">
+        <button @click="toHistory">
             <img src="@/assets/icons/历史记录_history.svg" alt="查看历史订单">
             <span>查看历史订单</span>
         </button>
@@ -41,12 +41,6 @@ import { ref } from 'vue'
 import router from '@/router'
 import category from '@/components/CategoryButton.vue'
 import search from '@/components/SearchBar.vue'
-import {useRouter} from 'vue-router';
-
-const urouter = useRouter();
-function goToOrderHistory(){
-  router.push('/order-history');
-}
 
 const categoryStyles = ref([
     {type: 6, img: require("@/assets/icons/三明治_sandwich.svg"), name: "速食简餐",color: "var(--yellow-green-main)"},
@@ -59,13 +53,16 @@ const categoryStyles = ref([
     {type: 5, img: require("@/assets/icons/冰激凌_icecream-four.svg"), name: "甜品饮品",color: "var(--pink-main)"}
 ])
 
-function tocategory(type){
+function toCategory(type){
     router.push({
         path: "/category",
         query: {type: type}
     })
 }
 
+function toHistory(){
+    router.push('/history')
+}
 </script>
 
 <style scoped>
@@ -170,6 +167,7 @@ button.exit > img
 {
     filter: drop-shadow(var(--red-main) 100px 0px 0px);
 }
+
 button.exit:hover
 {
     background-color: var(--red-main);

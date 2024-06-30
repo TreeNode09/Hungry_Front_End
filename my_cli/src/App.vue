@@ -1,12 +1,13 @@
 <template>
-  <hungry-header></hungry-header>
-<hungry-main>
+  <hungryHeader></hungryHeader>
+<hungryMain>
     <router-view/>
-</hungry-main>
+</hungryMain>
 </template>
 
 <script setup>
-
+import hungryHeader from './components/Header.vue'
+import hungryMain from './components/MainArea.vue'
 </script>
 
 <!--杂项-->
@@ -62,6 +63,13 @@ body
 
 <!--文字样式-->
 <style>
+h1
+{
+    font-size: 50px;
+    font-weight: 600;
+    font-family: Oswald;
+}
+
 h2
 {
     font-size: 32px;
@@ -113,6 +121,7 @@ button
     display: flex;
     overflow: hidden;
 
+    color: var(--green-dim);
     font-size: 20px;
     font-weight: 600;
    
@@ -128,6 +137,10 @@ button
 
 button:hover
 {
+    color: #fff;
+
+    background-color: var(--green-dim);
+    
     transition: all 0.2s;
 }
 
