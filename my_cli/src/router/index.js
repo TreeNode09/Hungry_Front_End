@@ -1,13 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Welcome from '@/views/WelcomeView.vue';
 import OrderHistory from '../components/OrderHistory.vue';
-//import AddressManagement from '../views/AddressManagement.vue';
+import AddressManagement from '../views/AddressManagement.vue';
+import ShopManagement from '../views/ShopManagement.vue';
+
 
 const routes = [
   {
     path: '/',
     name: 'welcome',  //初始界面
-    component: Welcome
+    component: Welcome,
   },
   {
     path: '/login',
@@ -46,20 +48,26 @@ const routes = [
     component: () => import('@/views/PayView.vue')
   },
   {
+    path: '/order-history',
+    name: 'OrderHistory',
+    component: OrderHistory,
+  },
+    {
+    path: '/address-management',
+    name: 'AddressManagement',
+    component: AddressManagement,
+  },
+  {
+    path: '/shop-management',
+    name: 'ShopManagement',
+    component: ShopManagement,
+  },
+    {
     path: '/businessManagement',
     name: 'businessManagement',
     component: () => import('@/views/BusinessManagementView.vue')
-  }
-  // {
-  //   path: '/order-history',
-  //   name: 'OrderHistory',
-  //   component: OrderHistory,
-  // },
-  //   {
-  //   path: '/address-management',
-  //   name: 'AddressManagement',
-  //   component: AddressManagement,
-  // },
+  },
+
 ];
 
 const router = createRouter({

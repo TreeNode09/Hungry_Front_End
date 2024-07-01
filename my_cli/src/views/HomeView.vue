@@ -32,6 +32,10 @@
             <img src="@/assets/icons/开关_power.svg" alt="退出登录">
             <span>退出登录</span>
         </button>
+      <button @click="toShopManagement">
+<!--      <img src="@/assets/icons/店铺管理_icon.svg" alt="店铺管理">-->
+      <span>店铺管理</span>
+    </button>
     </div>
 </div>
 </template>
@@ -64,9 +68,13 @@ function toHistory(){
     router.push('/history')
 }
 
-// function toAddressManagement() {
-//   router.push('/address-management');
-// }
+function toAddressManagement() {
+  router.push('/address-management');
+}
+
+function toShopManagement() {
+  router.push('/shop-management');
+}
 </script>
 
 
