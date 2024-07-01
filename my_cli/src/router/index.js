@@ -48,6 +48,11 @@ const routes = [
     component: () => import('@/views/PayView.vue')
   },
   {
+    path: '/succeed',
+    name: 'succeed', //支付成功界面
+    component: () => import('@/views/SucceedView.vue')
+  },
+  {
     path: '/order-history',
     name: 'OrderHistory',
     component: OrderHistory,
