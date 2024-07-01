@@ -5,9 +5,9 @@
         <div class="identity">
             <identity v-for="identity in identities" :identity="identity" @click="updateIdentity(identity.id)"></identity>
         </div>
-        <input type="text" :placeholder=identities[option].name class="margin-2" v-model="loginForm.userName">
+        <input type="text" :placeholder=identities[option].name class="margin-2" v-model="loginInfo.userName">
         <small><span v-if="nameEmpty">请输入{{ identities[option].name }}</span></small>
-        <input type="password" placeholder="密码" class="margin-1" v-model="loginForm.password">
+        <input type="password" placeholder="密码" class="margin-1" v-model="loginInfo.password">
         <small><span v-if="passwordEmpty">请输入密码</span></small>
         <div class="local">
             <input type="checkbox" v-model="local">
@@ -25,20 +25,15 @@ import router from '@/router'
 import identity from '@/components/IdentityButton.vue'
 
 
-const loginForm=ref({
-  userName:"",
-  password:""
+const loginInfo = ref({
+    userName: "",
+    password: ""
 })
 
-// const name = ref('')
-// const password = ref('')
 const local = ref(false)
 
-const isOK = ref(false)
-const userInfo = ref({})
-const token = ref('')
+const result=ref([])
 
-const error = ref(false)
 const nameEmpty = ref(false)
 const passwordEmpty = ref(false)
 const notFound = ref(false)
@@ -59,59 +54,36 @@ function updateIdentity(id){
 }
 
 function login(){
-    // if(userName.value === ''){
-    //     error.value = true
-    //     nameEmpty.value = true
-    // }
-    // else{
-    //     nameEmpty.value = false
-    // }
-    //
-    // if(password.value === ''){
-    //     error.value = true
-    //     passwordEmpty.value = true
-    // }
-    // else{
-    //     passwordEmpty.value = false
-    // }
+    if(loginInfo.value.userName === '') {nameEmpty.value = true}
+    else{nameEmpty.value = false}
+    
+    if(loginInfo.value.password === '') {passwordEmpty.value = true}
+    else{passwordEmpty.value = false}
 
-    if(error.value === false) {
-      if (option.value === 0) {
-        //用户登录
-        // console.log(name.value,password.value)
-        // axios.post(, {
-        //   userName:name.value,
-        //   password:"123",
-        //   delTag:"1"
-        // })
-        axios({
-          method: "post",
-          baseURL: "http://localhost:8001",
-          url: '/user/login',
-          data: loginForm.value,
-
-        })
-            .then(response => {
-              isOK.value = response.data.result
-              userInfo.value = response.data.data
-              token.value = response.data.msg
-
-              if (isOK.value === true) {
-                router.push('/home')
-                console.log(userInfo.value, token.value)}
+    if(nameEmpty.value === false && passwordEmpty.value === false) {
+        if (option.value === 0) {
+            //用户登录
+            axios({
+                method: "post",
+                baseURL: "http://localhost:8001",
+                url: '/user/login',
+                data: loginInfo.value,
             })
-            .catch(error => {
-              alert(error)
-            })
-      }
-      else if (option.value === 1) {
+            .then(response => {result.value = response})
+            .catch(error => {alert(error)})
+        }
+        else if (option.value === 1) {
         //商家登录
-      }
-      else if (option.value === 2) {
+        }
+        else if (option.value === 2) {
         //管理员登录
-      }
-      }
-
+        }
+        
+        if (isOK.value === true) {
+            router.push('/home')
+            console.log(userInfo.value, token.value)
+        }
+    }
 }
 </script>
 
