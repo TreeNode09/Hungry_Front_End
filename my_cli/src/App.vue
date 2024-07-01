@@ -1,5 +1,5 @@
 <template>
-  <hungryHeader></hungryHeader>
+<hungryHeader></hungryHeader>
 <hungryMain>
     <router-view/>
 </hungryMain>
@@ -147,7 +147,7 @@ button:hover
 input
 {
     display: block;
-    
+
     color: var(--green-dim);
     font-size: 20px;
 

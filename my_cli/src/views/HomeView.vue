@@ -63,11 +63,13 @@ const toCategory = (type) => {
 function toHistory(){
     router.push('/history')
 }
+
+// function toAddressManagement() {
+//   router.push('/address-management');
+// }
 </script>
 
-function toAddressManagement() {
-  router.push('/address-management');
-}
+
 
 <style scoped>
 /*button {
