@@ -17,9 +17,9 @@ import router from '@/router'
 const prop = defineProps(['result'])
 
 const toOrder = () => {
+    sessionStorage.setItem("business",JSON.stringify(prop.result))
     router.push({
-        path: '/order',
-        query: {business: JSON.stringify(prop.result)}
+        path: '/order'
     })
 }
 </script>

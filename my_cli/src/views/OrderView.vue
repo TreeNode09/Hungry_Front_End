@@ -2,13 +2,13 @@
 <div class="left order">
     <div class="business margin-2">
         <div class="left">
-            <img :src="business.img" :alt="business.name">
+            <img :src="business.businessImg" :alt="business.name">
         </div>
         <div class="left">
-            <h2>{{ business.name }}</h2>
-            <h6>￥{{ business.start }}起送，配送费￥{{ business.delivery }}</h6>
-            <h6>地址：{{ business.address }}</h6>
-            <h6>介绍：{{ business.explain }}</h6>
+            <h2>{{ business.businessName }}</h2>
+            <h6>￥{{ business.startPrice }}起送，配送费￥{{ business.deliveryPrice }}</h6>
+            <h6>地址：{{ business.businessAddress }}</h6>
+            <h6>介绍：{{ business.businessExplain }}</h6>
         </div>
     </div>
     <food v-for="food in foods" :key="food.id" :food="food" @updateFood="updateFood" ref="foodList"></food>
@@ -36,27 +36,16 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import food from '@/components/FoodBar.vue'
 import cart from '@/components/CartFoodBar.vue'
+import axios from "axios";
 
-const business = JSON.parse(useRoute().query.business)
-const foods = ref([
-    {id: 1, img: require("@/assets/images/薯霸王薯条.jpg"), name: "小薯条", explain: "好吃", prize: 11.99},
-    {id: 2, img: require("@/assets/images/薯霸王薯条.jpg"), name: "中薯条", explain: "免费中薯！", prize: 0.00},
-    {id: 3, img: require("@/assets/images/薯霸王薯条.jpg"), name: "大薯条", explain: "非常好吃", prize: 24.99},
-    {id: 4, img: require("@/assets/images/薯霸王薯条.jpg"), name: "超级薯条", explain: "超级好吃", prize: 34.99},
-    {id: 5, img: require("@/assets/images/薯霸王薯条.jpg"), name: "超级薯条", explain: "超级好吃", prize: 34.99,},
-    {id: 6, img: require("@/assets/images/薯霸王薯条.jpg"), name: "超级薯条", explain: "超级好吃", prize: 34.99},
-    {id: 7, img: require("@/assets/images/薯霸王薯条.jpg"), name: "超级薯条", explain: "超级好吃", prize: 34.99},
-    {id: 8, img: require("@/assets/images/薯霸王薯条.jpg"), name: "超级薯条", explain: "超级好吃", prize: 34.99},
-    {id: 9, img: require("@/assets/images/薯霸王薯条.jpg"), name: "超级薯条", explain: "超级好吃", prize: 34.99}
-])
-onMounted(async()=>{
-    try{
-        const response = await fetch('/foods')
-        const data = await response.json()
-        foods.value = data
-    }catch(error){
-        console.log(error)
-    }
+const business = JSON.parse(sessionStorage.getItem("business"))
+const foods = ref([])
+onMounted(() =>{
+  axios.get(`http://localhost:8001/food/${business.businessId}`
+
+  ).then(response => {foods.value = response.data.data
+  console.log(foods.value)})
+      .catch(error => {alert(error)})
 })
 const cartFoods = ref([])
 const isEmpty = ref(true)   //购物车是否为空，控制购物车按钮样式
