@@ -1,13 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Welcome from '@/views/WelcomeView.vue';
 import OrderHistory from '../components/OrderHistory.vue';
-// import AddressManagement from '../views/AddressManagement.vue';
+//import AddressManagement from '../views/AddressManagement.vue';
 
 const routes = [
   {
     path: '/',
     name: 'welcome',  //初始界面
     component: Welcome
+  },
+  {
+    path: '/login',
+    name: 'login', //登录页面
+    component: () => import('@/views/LoginView.vue')
   },
   {
     path: '/register',
@@ -41,10 +46,15 @@ const routes = [
     component: () => import('@/views/PayView.vue')
   },
   {
-    path: '/order-history',
-    name: 'OrderHistory',
-    component: OrderHistory,
-  },
+    path: '/businessManagement',
+    name: 'businessManagement',
+    component: () => import('@/views/BusinessManagementView.vue')
+  }
+  // {
+  //   path: '/order-history',
+  //   name: 'OrderHistory',
+  //   component: OrderHistory,
+  // },
   //   {
   //   path: '/address-management',
   //   name: 'AddressManagement',

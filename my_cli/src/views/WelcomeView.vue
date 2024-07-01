@@ -13,6 +13,12 @@
 <script setup>
 import router from '@/router'
 
+const toLogin = () => {
+  router.push({
+    path: '/login',
+  })
+}
+
 const toRegister = () => {
     router.push({
         path: '/register',

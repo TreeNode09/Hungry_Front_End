@@ -20,11 +20,15 @@
 
 <script setup>
 import { ref } from 'vue'
+import axios from 'axios'
+import router from '@/router'
 import identity from '@/components/IdentityButton.vue'
 
 const name = ref('')
 const password = ref('')
 const local = ref(false)
+
+const isOK = ref(false)
 
 const error = ref(false)
 const nameError = ref(false)
@@ -65,6 +69,9 @@ function register(){
     if(error.value === false){
         if(option.value === 0){
             //用户注册
+            axios.post('http://localhost:8001/user/reg', {userName: name.value, password: password.value})
+                .then(response => {isOK.value = response.data.result})
+                .catch(error => {alert(error)})
         }
         else if(option.value === 1){
             //商家注册
@@ -72,6 +79,11 @@ function register(){
         else if(option.value === 2){
             //管理员注册
         }
+
+        if(isOK.value === true){
+          router.push('/home')
+        }
+        else(alert('注册失败！'))
     }
 }
 </script>
