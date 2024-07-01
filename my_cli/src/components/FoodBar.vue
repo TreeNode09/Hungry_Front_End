@@ -1,12 +1,12 @@
 <template>
 <div class="bar">
     <div class="left img">
-        <img :src="food.img" :alt="food.name">
+        <img :src="food.foodImg" :alt="food.fooddName">
     </div>
     <div class="left detail">
-        <h4>{{ food.name }}</h4>
-        <h6>{{ food.explain }}</h6>
-        <div class="left margin-1"><h5>￥{{ food.prize }}</h5></div>
+        <h4>{{ food.foodName }}</h4>
+        <h6>{{ food.foodExplain }}</h6>
+        <div class="left margin-1"><h5>￥{{ food.foodPrice }}</h5></div>
         <div class="right add margin-1">
             <add @updateCount="updateFood" ref="addButton"></add>
         </div>
@@ -23,7 +23,7 @@ const emit = defineEmits(['updateFood'])
 defineExpose({clearFood})
 
 const updateFood = (count) => {
-    emit('updateFood', {id: prop.food.id, name: prop.food.name, prize: prop.food.prize, count: count})
+    emit('updateFood', {id: prop.food.foodId, name: prop.food.foodName, price: prop.food.foodPrice, count: count})
 }
 const addButton = ref("")
 

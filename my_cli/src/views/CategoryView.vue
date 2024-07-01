@@ -23,6 +23,8 @@ const categoryStyle = ref({type: 6, img: require("@/assets/icons/三明治_sandw
 const results = ref([])
 const businessTypeId = useRoute().query.type
 
+
+
 onMounted(() =>{
     axios.get(`http://localhost:8001/business/${businessTypeId}`, {
 

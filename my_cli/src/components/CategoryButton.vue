@@ -24,6 +24,8 @@ button
     margin-top: 20px;
     margin-right: 20px;
 
+    background-color: #fff;
+
     transition: all 0.2s;
 }
 
