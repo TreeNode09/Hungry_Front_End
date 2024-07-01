@@ -1,41 +1,53 @@
 <template>
 <h2 class="margin-1">你想做什么？</h2>
 <div class="left category white">
-    <h2><span style="color: var(--green-pale)">探</span><span>索美食</span></h2>
-    <h6>在数以百计的商家中发现精彩，寻找感兴趣的美食，探索更多可能。</h6>
-    <category v-for="categoryStyle in categoryStyles" :categoryStyle="categoryStyle"
-    @click="toCategory(categoryStyle.type)"
-    ></category>
+    <div class="bottom"></div>
+    <img src="@/assets/images/探索美食背景.jpg" alt="探索美食" class="mid">
+    <div class="top">
+        <h2><span style="color: var(--green-pale)">探</span><span>索美食</span></h2>
+        <h6>在数以百计的商家中发现精彩，寻找感兴趣的美食，探索更多可能。</h6>
+        <category v-for="categoryStyle in categoryStyles" :categoryStyle="categoryStyle"
+        @click="toCategory(categoryStyle.type)"
+        ></category>
+    </div>    
 </div>
 <div class="right white">
     <div class="search">
-        <h2><span style="color: var(--yellow-green-pale)">查</span><span>找</span></h2>
-        <h6>查找我们的内容，立即购买。</h6>
-        <search class="margin-2"></search>
+        <div class="bottom"></div>
+        <img src="@/assets/images/搜索背景.png" alt="搜索" class="mid">
+        <div class="top">
+            <h2><span style="color: var(--yellow-green-pale)">查</span><span>找</span></h2>
+            <h6>查找我们的内容，立即购买。</h6>
+            <search class="margin-2"></search>
+        </div>      
     </div>
     <div class="user">
-        <h2>用户中心</h2>
-        <h6>管理信息，个性化点餐体验。</h6>
-        <button>
-            <img src="@/assets/icons/我的_me.svg" alt="编辑个人信息">
-            <span>编辑个人信息</span>
-        </button>
-        <button @click="toAddressManagement">
-            <img src="@/assets/icons/本地_local-two.svg" alt="管理收货地址">
-            <span>管理收货地址</span>
-        </button>
-        <button @click="toHistory">
-            <img src="@/assets/icons/历史记录_history.svg" alt="查看历史订单">
-            <span>查看历史订单</span>
-        </button>
-        <button class="exit">
-            <img src="@/assets/icons/开关_power.svg" alt="退出登录">
-            <span>退出登录</span>
-        </button>
-      <button @click="toShopManagement">
+        <div class="bottom"></div>
+        <img src="@/assets/images/用户中心背景.jpg" alt="用户中心" class="mid">
+        <div class="top">
+            <h2>用户中心</h2>
+            <h6>管理信息，个性化点餐体验。</h6>
+            <button>
+                <img src="@/assets/icons/我的_me.svg" alt="编辑个人信息">
+                <span>编辑个人信息</span>
+            </button>
+            <button @click="toAddressManagement">
+                <img src="@/assets/icons/本地_local-two.svg" alt="管理收货地址">
+                <span>管理收货地址</span>
+            </button>
+            <button @click="toHistory">
+                <img src="@/assets/icons/历史记录_history.svg" alt="查看历史订单">
+                <span>查看历史订单</span>
+            </button>
+            <button class="exit">
+                <img src="@/assets/icons/开关_power.svg" alt="退出登录">
+                <span>退出登录</span>
+            </button>
+            <button @click="toShopManagement">
 <!--      <img src="@/assets/icons/店铺管理_icon.svg" alt="店铺管理">-->
-      <span>店铺管理</span>
-    </button>
+            <span>店铺管理</span>
+            </button>
+        </div>
     </div>
 </div>
 </template>
@@ -80,37 +92,50 @@ function toShopManagement() {
 
 
 <style scoped>
-/*button {
-  border: none;
-  background: none;
-  padding: 0;
-  cursor: pointer;
-  display: flex;
-  //align-items: center;
-}
-
-button > img {
-  margin-right: 8px;
-}*/
-
 .category, .search, .user
 {
+    position: relative;
+
     border-radius: 10px;
     border-width: 0;
-    
-    box-shadow: 0 2px 6px rgba(0,0,0,0.4);  
+
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+
 }
 
 .category
 {
     width: calc(60% - 20px);
-    max-height: calc(100% - 90px);
-    padding: 20px 0 20px 20px;
-
-    background: linear-gradient(var(--green-main), rgba(0,0,0,0));
+    height: calc(100% - 90px);
 }
 
-.category > h6
+.category > .bottom
+{
+    background-color: var(--green-main);
+    opacity: 50%;
+}
+
+.category > .mid
+{
+    left: 0;
+    width: 100%;
+
+    top: 40%;
+    height: 60%;
+
+    opacity: 30%;
+}
+
+.category > .top
+{
+    overflow: auto;
+
+    padding: 20px 0 20px 20px;
+
+    background: linear-gradient(var(--green-main) 50%, rgba(0,0,0,0));
+}
+
+.category > .top > h6
 {
     padding-right: 20px;
 }
@@ -122,20 +147,66 @@ button > img {
 
 .search
 {
+    height: 200px;
+}
+
+.search > .bottom
+{
+    background-color: var(--yellow-green-main);
+    opacity: 30%;
+}
+
+.search > .mid
+{
+    left: 30%;
+    width: 70%;
+
+    top: 0;
+    height: 100%;
+
+    opacity: 30%;
+}
+
+.search > .top
+{
     padding: 20px;
 
-    background: linear-gradient(0.25turn, var(--yellow-green-main), rgba(0,0,0,0));
+    background: linear-gradient(0.25turn, var(--yellow-green-main) 30%, rgba(0,0,0,0));
 }
 
 .user
-{
-    padding: 20px;
+{  
+    height: calc(100vh - var(--bar-height) - 90px - 220px);
     margin-top: 20px;
+}
+
+.user > .bottom
+{
+    background-color: var(--yellow-main);
+    opacity: 30%;
+}
+
+.user > .mid
+{
+    left: 0;
+    width: 100%;
+
+    top: 30%;
+    height: 70%;
+
+    opacity: 30%;
+}
+
+.user > .top
+{
+    overflow: auto;
+
+    padding: 20px;
 
     background: linear-gradient(var(--yellow-main), rgba(0,0,0,0));
 }
 
-.user > button
+.user > .top > button
 {
     color: var(--yellow-dim);
 
@@ -144,7 +215,7 @@ button > img {
     margin-top: 10px;
 }
 
-.user > button > img
+.user > .top > button > img
 {
     width: 24px;
     height: 24px;
@@ -154,20 +225,20 @@ button > img {
     filter: drop-shadow(var(--yellow-main) 100px 0px 0px);
 }
 
-.user > button > span
+.user > .top > button > span
 {
     padding-left: 10px;
     margin: auto 0;
 }
 
-.user > button:hover
+.user > .top > button:hover
 {
     color: #fff;
 
     background-color: var(--yellow-dim);
 }
 
-.user > button:hover > img
+.user > .top > button:hover > img
 {
     filter: drop-shadow(#fff 100px 0px 0px);
 }

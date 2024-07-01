@@ -42,9 +42,10 @@ body
 
 .in
 {
-    width: 133vh;
-    min-width: calc(var(--min-view-width) * 0.75);
-    max-width: calc(var(--max-view-width) * 0.75);
+    width: calc(133vh + 100px);
+    min-width: calc(var(--min-view-width) * 0.75 + 50px);
+    max-width: calc(var(--max-view-width) * 0.75 + 50px);
+    padding: 0 50px;
     margin: auto;
 }
 
@@ -58,6 +59,38 @@ body
 .right
 {
     float: right;
+}
+
+.bottom, .mid, .top
+{
+    position: absolute;
+
+    border-radius: 10px;
+}
+
+.bottom, .top
+{
+    left: 0;
+    width: 100%;
+
+    top: 0;
+    height: 100%;
+}
+
+.bottom
+{
+    z-index: 0;
+}
+
+.mid
+{
+    object-fit: cover;
+    z-index: 1;
+}
+
+.top
+{
+    z-index: 2;
 }
 </style>
 
@@ -238,9 +271,3 @@ body
     display: inline-block;
 }
 </style>
-
-<script>
-export default {
-  name: 'App'
-}
-</script>
