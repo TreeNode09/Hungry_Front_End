@@ -1,6 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Welcome from '@/views/WelcomeView.vue'
-import OrderHistory from '../components/OrderHistory.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import Welcome from '@/views/WelcomeView.vue';
+import OrderHistory from '../components/OrderHistory.vue';
+import AddressManagement from '../views/AddressManagement.vue';
 
 const routes = [
   {
@@ -43,6 +44,11 @@ const routes = [
     path: '/order-history',
     name: 'OrderHistory',
     component: OrderHistory,
+  },
+    {
+    path: '/address-management',
+    name: 'AddressManagement',
+    component: AddressManagement,
   },
 ];
 
