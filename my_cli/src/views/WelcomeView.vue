@@ -11,7 +11,13 @@
 </template>
 
 <script setup>
+import router from '@/router'
 
+const toRegister = () => {
+    router.push({
+        path: '/register',
+    })
+}
 </script>
 
 <style>

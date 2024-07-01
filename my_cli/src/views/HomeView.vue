@@ -53,7 +53,7 @@ const categoryStyles = ref([
     {type: 5, img: require("@/assets/icons/冰激凌_icecream-four.svg"), name: "甜品饮品",color: "var(--pink-main)"}
 ])
 
-function toCategory(type){
+const toCategory = (type) => {
     router.push({
         path: "/category",
         query: {type: type}

@@ -5,8 +5,13 @@ import OrderHistory from '../components/OrderHistory.vue'
 const routes = [
   {
     path: '/',
-    name: 'Welcome',  //初始界面
+    name: 'welcome',  //初始界面
     component: Welcome
+  },
+  {
+    path: '/register',
+    name: 'register', //注册页面
+    component: () => import('@/views/RegisterView.vue')
   },
   {
     path: '/home',

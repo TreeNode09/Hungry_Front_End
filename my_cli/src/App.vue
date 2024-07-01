@@ -146,6 +146,8 @@ button:hover
 
 input
 {
+    display: block;
+    
     color: var(--green-dim);
     font-size: 20px;
 
