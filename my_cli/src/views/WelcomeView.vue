@@ -1,7 +1,7 @@
 <template>
 <div class="out">
     <div class="center">
-        <h1><span style="color: var(--green-main)">H</span>ungry? 帮你找吃的。</h1>
+        <h1><span style="color: var(--green-main)">H</span>ungry? 尽享寻味之旅。</h1>
         <div class="options">
             <button class="login" @click="toLogin"><div class="center">登录</div></button>
             <button class="register" @click="toRegister"><div class="center">注册</div></button>
@@ -11,7 +11,13 @@
 </template>
 
 <script setup>
+import router from '@/router'
 
+const toRegister = () => {
+    router.push({
+        path: '/register',
+    })
+}
 </script>
 
 <style>

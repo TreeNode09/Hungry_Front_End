@@ -1,12 +1,18 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Welcome from '@/views/WelcomeView.vue'
-import OrderHistory from '../components/OrderHistory.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import Welcome from '@/views/WelcomeView.vue';
+import OrderHistory from '../components/OrderHistory.vue';
+import AddressManagement from '../views/AddressManagement.vue';
 
 const routes = [
   {
     path: '/',
-    name: 'Welcome',  //初始界面
+    name: 'welcome',  //初始界面
     component: Welcome
+  },
+  {
+    path: '/register',
+    name: 'register', //注册页面
+    component: () => import('@/views/RegisterView.vue')
   },
   {
     path: '/home',
@@ -38,6 +44,11 @@ const routes = [
     path: '/order-history',
     name: 'OrderHistory',
     component: OrderHistory,
+  },
+    {
+    path: '/address-management',
+    name: 'AddressManagement',
+    component: AddressManagement,
   },
 ];
 

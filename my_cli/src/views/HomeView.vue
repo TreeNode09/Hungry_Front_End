@@ -20,7 +20,7 @@
             <img src="@/assets/icons/我的_me.svg" alt="编辑个人信息">
             <span>编辑个人信息</span>
         </button>
-        <button>
+        <button @click="toAddressManagement">
             <img src="@/assets/icons/本地_local-two.svg" alt="管理收货地址">
             <span>管理收货地址</span>
         </button>
@@ -53,7 +53,7 @@ const categoryStyles = ref([
     {type: 5, img: require("@/assets/icons/冰激凌_icecream-four.svg"), name: "甜品饮品",color: "var(--pink-main)"}
 ])
 
-function toCategory(type){
+const toCategory = (type) => {
     router.push({
         path: "/category",
         query: {type: type}
@@ -64,6 +64,10 @@ function toHistory(){
     router.push('/history')
 }
 </script>
+
+function toAddressManagement() {
+  router.push('/address-management');
+}
 
 <style scoped>
 /*button {
