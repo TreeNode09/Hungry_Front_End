@@ -62,12 +62,6 @@ const routes = [
     name: 'ShopManagement',
     component: ShopManagement,
   },
-    {
-    path: '/businessManagement',
-    name: 'businessManagement',
-    component: () => import('@/views/BusinessManagementView.vue')
-  },
-
 ];
 
 const router = createRouter({

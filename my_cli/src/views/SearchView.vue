@@ -27,13 +27,6 @@ onMounted(() =>{
   }).then(response => {results.value = response.data.data})
       .catch(error => {alert(error)})
 })
-
-onMounted(() =>{
-    axios.get(`http://localhost:8001/business/${businessTypeId}`, {
-
-    }).then(response => {results.value = response.data.data.records})
-    .catch(error => {alert(error)})
-})
 </script>
 
 <style scoped>

@@ -7,15 +7,15 @@
       <h2>店铺信息</h2>
       <div class="shop-info-item">
         <label>店铺名称:</label>
-        <input v-model="shopInfo.name" placeholder="店铺名称" />
+        <input v-model="business.businessName" placeholder="店铺名称" />
       </div>
       <div class="shop-info-item">
         <label>店铺图片:</label>
-        <input v-model="shopInfo.image" placeholder="店铺图片URL" />
+        <img :src="business.businessImg" :alt="business.businessName">
       </div>
       <div class="shop-info-item">
         <label>店铺地址:</label>
-        <input v-model="shopInfo.address" placeholder="店铺地址" />
+        <input v-model="business.businessAddress" placeholder="店铺地址" />
       </div>
       <button @click="saveShopInfo">保存店铺信息</button>
     </div>
@@ -26,18 +26,18 @@
       <button @click="addFood">新增食品</button>
       <ul>
         <li v-for="(food, index) in foods" :key="index" class="food-item">
-          <img :src="food.image" alt="food.name" width="100" />
-          <span>{{ food.name }}</span>
-          <span>{{ food.price }} 元</span>
+          <img :src="food.foodImg" :alt="food.foodName">
+          <span>{{ food.foodName }}</span>
+          <span>{{ food.foodPrice }} 元</span>
           <button @click="editFood(index)">编辑</button>
           <button @click="removeFood(index)">删除</button>
         </li>
       </ul>
       <div v-if="isEditing" class="food-edit">
         <h2>{{ editIndex === -1 ? '新增食品' : '编辑食品' }}</h2>
-        <input v-model="currentFood.name" placeholder="食品名称" />
-        <input v-model="currentFood.image" placeholder="食品图片URL" />
-        <input v-model="currentFood.price" placeholder="食品价格" type="number" />
+        <input v-model="currentFood.foodName" placeholder="食品名称" />
+        <input v-model="currentFood.foodImage" placeholder="食品图片URL" />
+        <input v-model="currentFood.foodPrice" placeholder="食品价格" type="number" />
         <button @click="saveFood">保存</button>
         <button @click="cancelEdit">取消</button>
       </div>
@@ -48,11 +48,11 @@
       <h2>店铺设置</h2>
       <label>
         起送费:
-        <input v-model="deliverySettings.minFee" type="number" />
+        <input v-model="business.startPrice" type="number" />
       </label>
       <label>
-        最大配送距离:
-        <input v-model="deliverySettings.maxDistance" type="number" />
+        配送费:
+        <input v-model="business.deliveryPrice" type="number" />
       </label>
       <button @click="saveSettings">保存设置</button>
     </div>
@@ -60,30 +60,30 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import {onMounted, ref} from 'vue';
+import axios from "axios";
 
-const shopInfo = ref({
-  name: '我的店铺',
-  image: 'http://example.com/shop.jpg',
-  address: '某某街道123号',
-});
-
-const foods = ref([
-  { name: '食品A', image: 'http://example.com/imageA.jpg', price: 10 },
-  { name: '食品B', image: 'http://example.com/imageB.jpg', price: 20 },
-]);
-
-const currentFood = ref({ name: '', image: '', price: 0 });
+const business = ref({});
+const businessId = "10001";
+const foods = ref([]);
+const currentFood = ref({ foodName: '', foodImage: '', foodPrice: 0 });
 const isEditing = ref(false);
 const editIndex = ref(-1);
+onMounted(() =>{
+  axios.get(`http://localhost:8001/business/getInfo/${businessId}`
 
-const deliverySettings = ref({
-  minFee: 5,
-  maxDistance: 10,
-});
+  ).then(response => {business.value = response.data.data
+    console.log(business.value)})
+      .catch(error => {alert(error)})
+  axios.get(`http://localhost:8001/food/${businessId}`
+
+  ).then(response => {foods.value = response.data.data
+    console.log(foods.value)})
+      .catch(error => {alert(error)})
+})
 
 function addFood() {
-  currentFood.value = { name: '', image: '', price: 0 };
+  currentFood.value = { foodName: '', foodImage: '', foodPrice: 0 };
   isEditing.value = true;
   editIndex.value = -1;
 }
