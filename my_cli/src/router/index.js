@@ -3,7 +3,7 @@ import Welcome from '@/views/WelcomeView.vue';
 import OrderHistory from '../components/OrderHistory.vue';
 import AddressManagement from '../views/AddressManagement.vue';
 import ShopManagement from '../views/ShopManagement.vue';
-
+import ShopListManagement from "../views/ShopListManagement.vue";
 
 const routes = [
   {
@@ -67,6 +67,11 @@ const routes = [
     name: 'ShopManagement',
     component: ShopManagement,
   },
+  {
+    path:'/shop-list-management',
+    name: 'ShopListManagement',
+    component: ShopListManagement,
+  }
 ];
 
 const router = createRouter({
