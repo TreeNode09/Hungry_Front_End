@@ -45,7 +45,7 @@ button
 
 button:hover
 {
-    background-color: #fff;
+    background-color: none;
 }
 
 img
