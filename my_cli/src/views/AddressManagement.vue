@@ -12,15 +12,18 @@
     </div>
     <div v-else class="right">
       <button @click="editAddress(index)"><div class="center">编辑</div></button>
-      <button @click="removeAddress(index)"><div class="center">删除</div></button>
+      <button @click="removeAddress(index)" class="delete"><div class="center">删除</div></button>
     </div>
   </li>
 </ul>
 <button v-if="!isNew" @click="addAddress" class="margin-1"><div class="center">添加地址</div></button>
+<div v-if="addresses.length === 0" class="out">
+  <h2 class="center">你尚未添加任何地址。</h2>
+</div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const addresses = ref([])
 const newAddress = ref('')
@@ -35,6 +38,8 @@ function addAddress() {
 
 function saveEdit(index) {
   addresses.value[index] = newAddress.value
+  //post
+
   isEditing.value[index] = false
   if(isNew.value) {
     newAddress.value = ''
@@ -46,6 +51,7 @@ function cancelEdit(index) {
   isEditing.value[index] = false
   if(isNew.value) {
     addresses.value.splice(index, 1)
+    isEditing.value.splice(index, 1)
     isNew.value = false
   }
 }
@@ -56,8 +62,14 @@ function editAddress(index) {
 
 function removeAddress(index) {
   addresses.value.splice(index, 1)
+  //delete?
+
   isEditing.value.splice(index, 1)
 }
+
+onMounted(() => {
+  //get
+  })
 </script>
 
 <style scoped>
@@ -82,8 +94,18 @@ li h4
   padding: 9px 0;
 }
 
+li > .left
+{
+  width: calc(100% - 240px);
+}
+
 button {
   width: 100px;
   margin-right: 10px;
+}
+
+button.delete:hover
+{
+  background-color: var(--red-main);
 }
 </style>
