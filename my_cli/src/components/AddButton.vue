@@ -43,6 +43,11 @@ button
     box-shadow: none;
 }
 
+button:hover
+{
+    background-color: #fff;
+}
+
 img
 {
     width: 100%;
