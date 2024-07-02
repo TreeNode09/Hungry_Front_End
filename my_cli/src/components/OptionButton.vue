@@ -1,11 +1,11 @@
 <template>
-<button :style="{ '--hover-color': identity.color }" :class="{checked: identity.isChecked}">
-{{ identity.buttonName }}
+<button :style="{ '--hover-color': option.color }" :class="{checked: option.isChecked}">
+{{ option.buttonName }}
 </button>
 </template>
 
 <script setup>
-const prop = defineProps(['identity'])
+const prop = defineProps(['option'])
 </script>
 
 <style scoped>

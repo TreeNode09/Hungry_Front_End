@@ -3,7 +3,7 @@
     <div class="center">
         <h2 class="margin-1">注册你的 Hungry? 账户。</h2>
         <div class="identity">
-            <identity v-for="identity in identities" :identity="identity" @click="updateIdentity(identity.id)"></identity>
+            <option v-for="identity in identities" :identity="identity" @click="updateIdentity(identity.id)"></option>
         </div>
         <input type="text" :placeholder=identities[option].name class="margin-2" v-model="name">
         <small><span v-if="nameError">请输入{{ identities[option].name }}</span></small>
@@ -22,7 +22,7 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import router from '@/router'
-import identity from '@/components/IdentityButton.vue'
+import option from '@/components/OptionButton.vue'
 
 const name = ref('')
 const password = ref('')
