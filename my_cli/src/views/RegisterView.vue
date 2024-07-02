@@ -3,7 +3,7 @@
     <div class="center">
         <h2 class="margin-1">注册你的 Hungry? 账户。</h2>
         <div class="identity">
-            <option v-for="identity in identities" :option="identity" @click="updateIdentity(identity.id)"></option>
+            <choice v-for="identity in identities" :option="identity" @click="updateIdentity(identity.id)"></choice>
         </div>
         <input type="text" :placeholder=identities[option].name class="margin-2" v-model="name">
         <small><span v-if="nameError">请输入{{ identities[option].name }}</span></small>
@@ -22,7 +22,7 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import router from '@/router'
-import option from '@/components/OptionButton.vue'
+import choice from '@/components/OptionButton.vue'
 
 const name = ref('')
 const password = ref('')
@@ -34,7 +34,7 @@ const error = ref(false)
 const nameError = ref(false)
 const passwordError = ref(false)
 
-const selectedIdentity = ref(0)
+const option = ref(0)
 const identities = ref([
     {id: 0, buttonName: "用户", name: "用户名", color: "var(--green-main)", isChecked: true},
     {id: 1, buttonName: "商家", name: "店铺名", color: "var(--yellow-green-main)", isChecked: false},
@@ -46,7 +46,7 @@ function updateIdentity(id){
         identities.value[i].isChecked = false
     }
     identities.value[id].isChecked = true
-    selectedIdentity.value = id
+    option.value = id
 }
 
 function register(){
@@ -67,16 +67,16 @@ function register(){
     }
 
     if(error.value === false){
-        if(selectedIdentity.value === 0){
+        if(option.value === 0){
             //用户注册
             axios.post('http://localhost:8001/user/reg', {userName: name.value, password: password.value})
                 .then(response => {isOK.value = response.data.result})
                 .catch(error => {alert(error)})
         }
-        else if(selectedIdentity.value === 1){
+        else if(option.value === 1){
             //商家注册
         }
-        else if(selectedIdentity.value === 2){
+        else if(option.value === 2){
             //管理员注册
         }
 
