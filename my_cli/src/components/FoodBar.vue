@@ -1,7 +1,7 @@
 <template>
 <div class="bar">
     <div class="left img">
-        <img :src="food.foodImg" :alt="food.fooddName">
+        <img :src="food.foodImg" :alt="food.foodName">
     </div>
     <div class="left detail">
         <h4>{{ food.foodName }}</h4>
@@ -23,7 +23,7 @@ const emit = defineEmits(['updateFood'])
 defineExpose({clearFood})
 
 const updateFood = (count) => {
-    emit('updateFood', {id: prop.food.foodId, name: prop.food.foodName, price: prop.food.foodPrice, count: count})
+    emit('updateFood', {foodId: prop.food.foodId, name: prop.food.foodName, price: prop.food.foodPrice, quantity: count})
 }
 const addButton = ref("")
 

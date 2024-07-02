@@ -24,6 +24,7 @@ import axios from 'axios'
 import router from '@/router'
 import choice from '@/components/OptionButton.vue'
 
+const emit = defineEmits(['userInfo'])
 
 const loginInfo = ref({
     userName: "",
@@ -33,8 +34,8 @@ const loginInfo = ref({
 const local = ref(false)
 
 const isOK = ref(false)
-
-const result=ref([])
+const userInfo = ref({})
+const token = ref('')
 
 const nameEmpty = ref(false)
 const passwordEmpty = ref(false)
@@ -65,6 +66,7 @@ function login(){
 
     if(nameEmpty.value === false && passwordEmpty.value === false) {
         if (option.value === 0) {
+
             //用户登录
             axios({
                 method: "post",
@@ -72,7 +74,16 @@ function login(){
                 url: '/user/login',
                 data: loginInfo.value,
             })
-            .then(response => {result.value = response})
+            .then(response => {
+              isOK.value = response.data.result
+              userInfo.value = response.data.data
+              token.value = response.data.msg
+
+              if(isOK.value === true) {
+                window.localStorage.setItem('userInfo', JSON.stringify(userInfo.value))
+                router.push('/home')
+              }
+            })
             .catch(error => {alert(error)})
         }
         else if(option.value === 1) {
@@ -82,10 +93,7 @@ function login(){
         //管理员登录
         }
         
-        if(isOK.value === true) {
-            router.push('/home')
-            console.log(userInfo.value, token.value)
-        }
+
     }
 }
 </script>

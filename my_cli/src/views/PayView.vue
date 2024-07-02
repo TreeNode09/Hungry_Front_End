@@ -56,11 +56,9 @@ const foodDetails = ref([
 const userInfo = ref({address: "珞瑜路1037号华中科技大学韵苑宿舍", name: "张三", tel: 13609999999})
 
 function pay(){
-    if(true){
-        router.push({
-            path: '/succeed'
-        })
-    }
+  router.push({
+    path: '/succeed'
+  })
 }
 </script>
 

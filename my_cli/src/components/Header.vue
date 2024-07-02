@@ -5,7 +5,7 @@
             <h3><span class="title">H</span>ungry?</h3>
         </div>
         <div class="right">
-            <h6 v-if="login">欢迎，{{ username }}</h6>
+            <h6 v-if="login">欢迎，{{ userInfo.userName }}</h6>
         </div>
     </div>
 </div>
@@ -14,9 +14,10 @@
 <script setup>
 import { ref } from 'vue'
 
+const userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
+//console.log(userInfo)
 //判断是否登录，登录则显示欢迎信息
 const login = true
-const username = ref("炕洋芋")
 </script>
 
 <style scoped>

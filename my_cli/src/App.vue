@@ -1,13 +1,23 @@
 <template>
-<hungryHeader></hungryHeader>
+<hungryHeader :userInfo="userInfo"></hungryHeader>
 <hungryMain>
-    <router-view/>
+    <router-view @login="login"/>
 </hungryMain>
 </template>
 
 <script setup>
+import { ref, provide } from 'vue'
 import hungryHeader from './components/Header.vue'
 import hungryMain from './components/MainArea.vue'
+
+const userInfo = ref({})
+function login(info){
+  userInfo.value = info
+}
+
+provide('userInfo', userInfo)
+//delTag, password, type, userId, userImg, userName, userSex
+
 </script>
 
 <!--杂项-->
