@@ -3,7 +3,7 @@
     <div class="center">
         <h2 class="margin-1">登录你的 Hungry? 账户。</h2>
         <div class="identity">
-            <option v-for="identity in identities" :identity="identity" @click="updateIdentity(identity.id)"></option>
+            <option v-for="identity in identities" :option="identity" @click="updateIdentity(identity.id)"></option>
         </div>
         <input type="text" :placeholder=identities[option].name class="margin-2" v-model="loginInfo.userName">
         <small><span v-if="nameEmpty">请输入{{ identities[option].name }}</span></small>
@@ -32,13 +32,16 @@ const loginInfo = ref({
 
 const local = ref(false)
 
+const isOK = ref(false)
+
 const result=ref([])
 
 const nameEmpty = ref(false)
 const passwordEmpty = ref(false)
 const notFound = ref(false)
 
-const option = ref(0)
+
+const selectedIdentity = ref(0)
 const identities = ref([
     {id: 0, buttonName: "用户", name: "用户名", color: "var(--green-main)", isChecked: true},
     {id: 1, buttonName: "商家", name: "店铺名", color: "var(--yellow-green-main)", isChecked: false},
@@ -50,7 +53,7 @@ function updateIdentity(id){
         identities.value[i].isChecked = false
     }
     identities.value[id].isChecked = true
-    option.value = id
+    selectedIdentity.value = id
 }
 
 function login(){
@@ -61,7 +64,7 @@ function login(){
     else{passwordEmpty.value = false}
 
     if(nameEmpty.value === false && passwordEmpty.value === false) {
-        if (option.value === 0) {
+        if (selectedIdentity.value === 0) {
             //用户登录
             axios({
                 method: "post",
@@ -72,14 +75,14 @@ function login(){
             .then(response => {result.value = response})
             .catch(error => {alert(error)})
         }
-        else if (option.value === 1) {
+        else if(selectedIdentity.value === 1) {
         //商家登录
         }
-        else if (option.value === 2) {
+        else if(selectedIdentity.value === 2) {
         //管理员登录
         }
         
-        if (isOK.value === true) {
+        if(isOK.value === true) {
             router.push('/home')
             console.log(userInfo.value, token.value)
         }

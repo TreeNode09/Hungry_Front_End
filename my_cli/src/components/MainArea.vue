@@ -38,16 +38,12 @@ const watcher = watch(useRoute(), () => {
     height: calc(100% - var(--bar-height));
 }
 
-.out
-{
-    overflow: auto;
-}
-
 .in
 {
+    overflow: auto;
+
     height: calc(100vh - var(--bar-height));
     min-height: calc(var(--min-view-height) - var(--bar-height));
-    margin: auto;
 
     background-color: rgba(255,255,255,0.6);
     backdrop-filter: blur(10px);
