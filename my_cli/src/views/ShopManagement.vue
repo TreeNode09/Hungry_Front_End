@@ -35,8 +35,10 @@
       </ul>
       <div v-if="isEditing" class="food-edit">
         <h2>{{ editIndex === -1 ? '新增食品' : '编辑食品' }}</h2>
+<!--        <img :src="currentFood.foodImg" :alt="currentFood.foodName">-->
+        <input @change="uploadPhoto($event)" type="file" class="kyc-passin">
+        <img :src="currentFood.foodImg" alt="">
         <input v-model="currentFood.foodName" placeholder="食品名称" />
-        <input v-model="currentFood.foodImage" placeholder="食品图片URL" />
         <input v-model="currentFood.foodPrice" placeholder="食品价格" type="number" />
         <button @click="saveFood">保存</button>
         <button @click="cancelEdit">取消</button>
@@ -66,7 +68,7 @@ import axios from "axios";
 const business = ref({});
 const businessId = "10001";
 const foods = ref([]);
-const currentFood = ref({ foodName: '', foodImage: '', foodPrice: 0 });
+const currentFood = ref({});
 const isEditing = ref(false);
 const editIndex = ref(-1);
 onMounted(() =>{
@@ -83,7 +85,7 @@ onMounted(() =>{
 })
 
 function addFood() {
-  currentFood.value = { foodName: '', foodImage: '', foodPrice: 0 };
+  currentFood.value = { foodName: '', foodImg: '', foodPrice: 0 };
   isEditing.value = true;
   editIndex.value = -1;
 }
@@ -117,6 +119,24 @@ function saveShopInfo() {
 
 function saveSettings() {
   alert('店铺设置已保存');
+}
+
+function uploadPhoto (e) {
+  // 利用fileReader对象获取file
+  var file = e.target.files[0];
+  var filesize = file.size;
+  if (filesize > 2101440) {
+    // 图片大于2MB
+
+  }
+  var reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = (e) => {
+    // 读取到的图片base64 数据编码 将此编码字符串传给后台即可
+    currentFood.value.foodImg=e.target.result
+    currentFood.value.foodPrice = 3.0
+    console.log(currentFood.value)
+  }
 }
 </script>
 
