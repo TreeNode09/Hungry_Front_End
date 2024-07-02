@@ -97,8 +97,6 @@ function toShopListManagement(){
 }
 </script>
 
-
-
 <style scoped>
 .category, .search, .user
 {
@@ -251,18 +249,25 @@ function toShopListManagement(){
     filter: drop-shadow(#fff 100px 0px 0px);
 }
 
-button.exit
+.user > .top > button.exit
 {
     color: var(--red-main);
 }
 
-button.exit > img
+.user > .top > button.exit > img
 {
     filter: drop-shadow(var(--red-main) 100px 0px 0px);
 }
 
-button.exit:hover
+.user > .top > button.exit:hover
 {
+    color: #fff;
+
     background-color: var(--red-main);
+}
+
+.user > .top > button.exit:hover > img
+{
+    filter: drop-shadow(#fff 100px 0px 0px);
 }
 </style>
