@@ -9,7 +9,7 @@
         <category v-for="categoryStyle in categoryStyles" :categoryStyle="categoryStyle"
         @click="toCategory(categoryStyle.type)"
         ></category>
-    </div>    
+    </div>
 </div>
 <div class="right white">
     <div class="search">
@@ -19,7 +19,7 @@
             <h2><span style="color: var(--yellow-green-pale)">查</span><span>找</span></h2>
             <h6>查找我们的内容，立即购买。</h6>
             <search class="margin-2"></search>
-        </div>      
+        </div>
     </div>
     <div class="user">
         <div class="bottom"></div>
@@ -46,6 +46,10 @@
             <button @click="toShopManagement">
 <!--      <img src="@/assets/icons/店铺管理_icon.svg" alt="店铺管理">-->
             <span>店铺管理</span>
+            </button>
+            <button @click="toShopListManagement">
+<!--      <img src="@/assets/icons/商家列表_icon.svg" alt="管理商家列表">-->
+            <span>管理商家列表</span>
             </button>
         </div>
     </div>
@@ -86,6 +90,10 @@ function toAddressManagement() {
 
 function toShopManagement() {
   router.push('/shop-management');
+}
+
+function toShopListManagement(){
+  router.push('/shop-list-management');
 }
 </script>
 
@@ -175,7 +183,7 @@ function toShopManagement() {
 }
 
 .user
-{  
+{
     height: calc(100vh - var(--bar-height) - 90px - 220px);
     margin-top: 20px;
 }
