@@ -42,10 +42,8 @@ body
 
 .in
 {
-    width: calc(133vh + 100px);
-    min-width: calc(var(--min-view-width) * 0.75 + 50px);
-    max-width: calc(var(--max-view-width) * 0.75 + 50px);
-    padding: 0 50px;
+    width: 100%;
+    padding: 0 calc((100vw - 133vh) / 2);
     margin: auto;
 }
 

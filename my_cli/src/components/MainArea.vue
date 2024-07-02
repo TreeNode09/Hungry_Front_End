@@ -1,5 +1,6 @@
 <template>
-<img src="@/assets/images/欢迎页背景.jpg" alt="背景图" class="mid">
+<img src="@/assets/images/欢迎页背景.jpg" alt="背景图" class="bottom">
+<div class="mid"></div>
 <div class="out top" ref="outer">
     <div class="in">
         <slot></slot>
@@ -20,11 +21,13 @@ const watcher = watch(useRoute(), () => {
 </script>
 
 <style scoped>
-.mid
+.bottom, .mid, .top
 {
-    left: 0;
-    width: 100%;
+    border-radius: 0;
+}
 
+.bottom
+{
     top: var(--bar-height);
     height: calc(100% - var(--bar-height));
 
@@ -32,9 +35,20 @@ const watcher = watch(useRoute(), () => {
     opacity: 20%;
 }
 
+.mid
+{
+    left: calc((100vw - 133vh - 100px) / 2);
+    width: calc(133vh + 100px);
+
+    top: var(--bar-height);
+    height: calc(100% - var(--bar-height));
+    background-color: rgba(255,255,255,0.6);
+    backdrop-filter: blur(10px);
+}
+
 .top
 {
-        top: var(--bar-height);
+    top: var(--bar-height);
     height: calc(100% - var(--bar-height));
 }
 
@@ -44,8 +58,5 @@ const watcher = watch(useRoute(), () => {
 
     height: calc(100vh - var(--bar-height));
     min-height: calc(var(--min-view-height) - var(--bar-height));
-
-    background-color: rgba(255,255,255,0.6);
-    backdrop-filter: blur(10px);
 }
 </style>
