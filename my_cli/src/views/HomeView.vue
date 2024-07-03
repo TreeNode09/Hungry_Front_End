@@ -44,12 +44,12 @@
                 <span>退出登录</span>
             </button>
             <button @click="toShopManagement">
-<!--      <img src="@/assets/icons/店铺管理_icon.svg" alt="店铺管理">-->
+                <img src="@/assets/icons/img.png" alt="店铺管理">
             <span>店铺管理</span>
             </button>
             <button @click="toShopListManagement">
-<!--      <img src="@/assets/icons/商家列表_icon.svg" alt="管理商家列表">-->
-            <span>管理商家列表</span>
+                <img src="@/assets/icons/img_2.png" alt="管理商家列表">
+                <span>管理商家列表</span>
             </button>
         </div>
     </div>
