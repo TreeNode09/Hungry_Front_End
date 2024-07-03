@@ -6,6 +6,7 @@ import ShopManagement from '../views/ShopManagement.vue';
 import Map from '../views/Map.vue';
 import MapSearch from '../views/MapSearch.vue';
 
+import ShopListManagement from "../views/ShopListManagement.vue";
 
 const routes = [
   {
@@ -50,6 +51,11 @@ const routes = [
     component: () => import('@/views/PayView.vue')
   },
   {
+    path: '/succeed',
+    name: 'succeed', //支付成功界面
+    component: () => import('@/views/SucceedView.vue')
+  },
+  {
     path: '/order-history',
     name: 'OrderHistory',
     component: OrderHistory,
@@ -80,6 +86,11 @@ const routes = [
     component: MapSearch
   },
 
+  {
+    path:'/shop-list-management',
+    name: 'ShopListManagement',
+    component: ShopListManagement,
+  }
 ];
 
 const router = createRouter({

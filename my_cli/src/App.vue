@@ -1,13 +1,23 @@
 <template>
-<hungryHeader></hungryHeader>
+<hungryHeader :userInfo="userInfo"></hungryHeader>
 <hungryMain>
-    <router-view/>
+    <router-view @login="login"/>
 </hungryMain>
 </template>
 
 <script setup>
+import { ref, provide } from 'vue'
 import hungryHeader from './components/Header.vue'
 import hungryMain from './components/MainArea.vue'
+
+const userInfo = ref({})
+function login(info){
+  userInfo.value = info
+}
+
+provide('userInfo', userInfo)
+//delTag, password, type, userId, userImg, userName, userSex
+
 </script>
 
 <!--杂项-->
@@ -42,9 +52,8 @@ body
 
 .in
 {
-    width: 133vh;
-    min-width: calc(var(--min-view-width) * 0.75);
-    max-width: calc(var(--max-view-width) * 0.75);
+    width: 100%;
+    padding: 0 calc((100vw - 133vh) / 2);
     margin: auto;
 }
 
@@ -58,6 +67,38 @@ body
 .right
 {
     float: right;
+}
+
+.bottom, .mid, .top
+{
+    position: absolute;
+
+    border-radius: 10px;
+}
+
+.bottom, .top
+{
+    left: 0;
+    width: 100%;
+
+    top: 0;
+    height: 100%;
+}
+
+.bottom
+{
+    z-index: 0;
+}
+
+.mid
+{
+    object-fit: cover;
+    z-index: 1;
+}
+
+.top
+{
+    z-index: 2;
 }
 </style>
 
@@ -238,9 +279,3 @@ body
     display: inline-block;
 }
 </style>
-
-<script>
-export default {
-  name: 'App'
-}
-</script>

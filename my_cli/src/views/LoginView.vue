@@ -3,7 +3,7 @@
     <div class="center">
         <h2 class="margin-1">登录你的 Hungry? 账户。</h2>
         <div class="identity">
-            <identity v-for="identity in identities" :identity="identity" @click="updateIdentity(identity.id)"></identity>
+            <choice v-for="identity in identities" :option="identity" @click="updateIdentity(identity.id)"></choice>
         </div>
         <input type="text" :placeholder=identities[option].name class="margin-2" v-model="loginInfo.userName">
         <small><span v-if="nameEmpty">请输入{{ identities[option].name }}</span></small>
@@ -22,8 +22,9 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import router from '@/router'
-import identity from '@/components/IdentityButton.vue'
+import choice from '@/components/OptionButton.vue'
 
+const emit = defineEmits(['userInfo'])
 
 const loginInfo = ref({
     userName: "",
@@ -32,11 +33,14 @@ const loginInfo = ref({
 
 const local = ref(false)
 
-const result=ref([])
+const isOK = ref(false)
+const userInfo = ref({})
+const token = ref('')
 
 const nameEmpty = ref(false)
 const passwordEmpty = ref(false)
 const notFound = ref(false)
+
 
 const option = ref(0)
 const identities = ref([
@@ -62,6 +66,7 @@ function login(){
 
     if(nameEmpty.value === false && passwordEmpty.value === false) {
         if (option.value === 0) {
+
             //用户登录
             axios({
                 method: "post",
@@ -69,20 +74,26 @@ function login(){
                 url: '/user/login',
                 data: loginInfo.value,
             })
-            .then(response => {result.value = response})
+            .then(response => {
+              isOK.value = response.data.result
+              userInfo.value = response.data.data
+              token.value = response.data.msg
+
+              if(isOK.value === true) {
+                window.localStorage.setItem('userInfo', JSON.stringify(userInfo.value))
+                router.push('/home')
+              }
+            })
             .catch(error => {alert(error)})
         }
-        else if (option.value === 1) {
+        else if(option.value === 1) {
         //商家登录
         }
-        else if (option.value === 2) {
+        else if(option.value === 2) {
         //管理员登录
         }
         
-        if (isOK.value === true) {
-            router.push('/home')
-            console.log(userInfo.value, token.value)
-        }
+
     }
 }
 </script>

@@ -7,7 +7,7 @@
         <div class="left">
             <h2>{{ business.businessName }}</h2>
             <h6>￥{{ business.startPrice }}起送，配送费￥{{ business.deliveryPrice }}</h6>
-            <h6>地址：{{ business.businessAddress }}</h6>
+          <h6>地址：<a href="">{{ business.businessAddress }}</a></h6>
             <h6>介绍：{{ business.businessExplain }}</h6>
         </div>
     </div>
@@ -33,11 +33,12 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import router from "@/router";
 import food from '@/components/FoodBar.vue'
 import cart from '@/components/CartFoodBar.vue'
 import axios from "axios";
 
+const userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
 const business = JSON.parse(sessionStorage.getItem("business"))
 const foods = ref([])
 onMounted(() =>{
@@ -45,6 +46,24 @@ onMounted(() =>{
 
   ).then(response => {foods.value = response.data.data
   console.log(foods.value)})
+      .catch(error => {alert(error)})
+  axios.get(`http://localhost:8001/cart/getInfo`,
+  {params:{businessId:business.businessId,userId:userInfo.userId}}
+  ).then(response => {
+    console.log(response.data.data)
+    cartFoods.value = response.data.data
+    for(var j= 0;j<cartFoods.value.length;j++){
+      axios.get(`http://localhost:8001/food/getInfo`,
+          {params:{foodId:cartFoods.value[j].foodId}}
+      ).then(response => {
+        console.log(response.data.data.foodName)
+        // this.$set(cartFoods.value[j],"name",response.data.data.foodName)
+        // this.$set(cartFoods.value[j],"price",response.data.data.foodPrice)
+        console.log(cartFoods.value[j])
+      })
+          .catch(error => {alert(error)})
+    }
+  })
       .catch(error => {alert(error)})
 })
 const cartFoods = ref([])
@@ -54,20 +73,22 @@ const foodList = ref([])
 
 function updateFood(newFood){
     for(var i = 0; i < cartFoods.value.length; i++){
-        if(newFood.id === cartFoods.value[i].id){
-            cartFoods.value[i].count = newFood.count
-            if(cartFoods.value[i].count === 0){
+        if(newFood.foodId === cartFoods.value[i].foodId){
+            cartFoods.value[i].quantity = newFood.quantity
+            if(cartFoods.value[i].quantity === 0){
                 cartFoods.value.splice(i, 1)
                 if(cartFoods.value.length === 0){
                     isEmpty.value = true
                 }
             }
+            updateCart()
             return
         }
     }
+    // console.log("shuohua")
     cartFoods.value.push(newFood)
     isEmpty.value = false
-    return
+    // return
 }
 
 function emptyCart(){
@@ -77,12 +98,34 @@ function emptyCart(){
         foodList.value[i].clearFood()
     }
 }
-
+function updateCart() {
+  for (var j = 0; j < cartFoods.value.length; j++) {
+    console.log(cartFoods.value[j].quantity)
+    axios.post(`http://localhost:8001/cart/update`,
+        {
+          foodId: cartFoods.value[j].foodId,
+          quantity: cartFoods.value[j].quantity,
+          businessId: business.businessId,
+          userId: userInfo.userId
+        })
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => {
+          alert(error)
+        })
+  }
+}
 const toPay = () => {
-    router.push({
-        path: '/pay',
-        query: {}
-    })
+  console.log(business.businessId,userInfo.userId)
+  axios.get(`http://localhost:8001/order/produce`,
+      {params:{businessId:business.businessId,userId:userInfo.userId}})
+      .then(response => {console.log(response)})
+      .catch(error => {alert(error)})
+  router.push({
+    path: '/pay',
+    query: {}
+  })
 }
 </script>
 

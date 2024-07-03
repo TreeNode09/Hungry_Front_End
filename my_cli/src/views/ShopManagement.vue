@@ -1,110 +1,116 @@
 <template>
   <div class="shop-management">
-    <h1>店铺管理</h1>
+    <!-- 店铺设置 -->
+    <div class="shop-settings">
+      <h2>店铺设置</h2>
 
-    <!-- 店铺信息 -->
-    <div class="shop-info">
-      <h2>店铺信息</h2>
-      <div class="shop-info-item">
-        <label>店铺名称:</label>
-        <input v-model="shopInfo.name" placeholder="店铺名称" />
-      </div>
-      <div class="shop-info-item">
-        <label>店铺图片:</label>
-        <input v-model="shopInfo.image" placeholder="店铺图片URL" />
-      </div>
-      <div class="shop-info-item">
-        <label>店铺地址:</label>
-        <input v-model="shopInfo.address" placeholder="店铺地址" />
-      </div>
-      <button @click="saveShopInfo">保存店铺信息</button>
+      <label>店铺名称:</label>
+      <input v-model="business.businessName" placeholder="店铺名称" />
+
+      <label>
+        店铺封面:
+        <input @change="uploadBusinessPhoto($event)" type="file" class="kyc-passin">
+        <img :src="business.businessImg" alt="">
+      </label>
+
+      <label>
+        起送费:
+        <input v-model="business.startPrice" type="number" />
+      </label>
+
+      <label>
+        配送费:
+        <input v-model="business.deliveryPrice" type="number" />
+      </label>
+
+      <label>
+        店铺地址:
+        <input v-model="business.businessAddress" placeholder="店铺地址" />
+      </label>
+
+      <button @click="saveSettings">保存设置</button>
+
     </div>
 
     <!-- 食品管理 -->
     <div class="food-management">
       <h2>食品管理</h2>
       <button @click="addFood">新增食品</button>
+        <div v-if="isEditing" class="food-edit">
+          <h2>{{ editIndex === -1 ? '新增食品' : '编辑食品' }}</h2>
+          <input v-model="addedFood.foodName" placeholder="食品名称" />
+          <input @change="uploadAddedPhoto($event)" type="file" class="kyc-passin">
+          <img :src="addedFood.foodImg" alt="">
+          <input v-model="addedFood.foodPrice" placeholder="食品价格" type="number" />
+          <button @click="saveAddedFood">保存</button>
+          <button @click="cancelEdit">取消</button>
+        </div>
+      </div>
       <ul>
         <li v-for="(food, index) in foods" :key="index" class="food-item">
-          <img :src="food.image" alt="food.name" width="100" />
-          <span>{{ food.name }}</span>
-          <span>{{ food.price }} 元</span>
-          <button @click="editFood(index)">编辑</button>
+          <input @change="uploadPhoto($event,index)" type="file" class="kyc-passin">
+          <img :src="food.foodImg" alt="">
+          <input v-model="food.foodName" placeholder="食品名称" />
+          <input v-model="food.foodPrice" placeholder="食品价格" type="number" />
+          <button @click="saveFood(index)">保存更改</button>
           <button @click="removeFood(index)">删除</button>
         </li>
       </ul>
-      <div v-if="isEditing" class="food-edit">
-        <h2>{{ editIndex === -1 ? '新增食品' : '编辑食品' }}</h2>
-        <input v-model="currentFood.name" placeholder="食品名称" />
-        <input v-model="currentFood.image" placeholder="食品图片URL" />
-        <input v-model="currentFood.price" placeholder="食品价格" type="number" />
-        <button @click="saveFood">保存</button>
-        <button @click="cancelEdit">取消</button>
-      </div>
     </div>
-
-    <!-- 店铺设置 -->
-    <div class="shop-settings">
-      <h2>店铺设置</h2>
-      <label>
-        起送费:
-        <input v-model="deliverySettings.minFee" type="number" />
-      </label>
-      <label>
-        最大配送距离:
-        <input v-model="deliverySettings.maxDistance" type="number" />
-      </label>
-      <button @click="saveSettings">保存设置</button>
-    </div>
-  </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import {onMounted, ref} from 'vue';
+import axios from "axios";
 
-const shopInfo = ref({
-  name: '我的店铺',
-  image: 'http://example.com/shop.jpg',
-  address: '某某街道123号',
-});
-
-const foods = ref([
-  { name: '食品A', image: 'http://example.com/imageA.jpg', price: 10 },
-  { name: '食品B', image: 'http://example.com/imageB.jpg', price: 20 },
-]);
-
-const currentFood = ref({ name: '', image: '', price: 0 });
+const business = ref({});
+const businessId = "10001";
+const foods = ref([]);
 const isEditing = ref(false);
 const editIndex = ref(-1);
+const addedFood = ref({});
+onMounted(() =>{
+  axios.get(`http://localhost:8001/business/getInfo/${businessId}`
 
-const deliverySettings = ref({
-  minFee: 5,
-  maxDistance: 10,
-});
+  ).then(response => {business.value = response.data.data
+    console.log(business.value)})
+      .catch(error => {alert(error)})
+  axios.get(`http://localhost:8001/food/${businessId}`
+
+  ).then(response => {foods.value = response.data.data
+    console.log(foods.value)})
+      .catch(error => {alert(error)})
+})
 
 function addFood() {
-  currentFood.value = { name: '', image: '', price: 0 };
+  addedFood.value = { foodName: '', foodImg: '', foodPrice: 0 };
   isEditing.value = true;
   editIndex.value = -1;
 }
 
-function editFood(index) {
-  currentFood.value = { ...foods.value[index] };
-  isEditing.value = true;
-  editIndex.value = index;
-}
 
 function removeFood(index) {
-  foods.value.splice(index, 1);
+  console.log(foods.value[index]);
+  axios.delete(`http://localhost:8001/food/del`,
+      {params:{foodId:foods.value[index].foodId}})
+      .then(response => {
+        console.log(response.data)})
+      .catch(error => {alert(error)})
 }
 
-function saveFood() {
-  if (editIndex.value === -1) {
-    foods.value.push({ ...currentFood.value });
-  } else {
-    foods.value[editIndex.value] = { ...currentFood.value };
-  }
-  isEditing.value = false;
+function saveFood(index) {
+  console.log(foods.value[index]);
+  axios.put(`http://localhost:8001/food/update`,foods.value[index])
+      .then(response => {
+    console.log(response.data)})
+      .catch(error => {alert(error)})
+}
+function saveAddedFood(index) {
+  foods.value.push(addedFood.value)
+  axios.post(`http://localhost:8001/food/add/${businessId}`,addedFood.value)
+      .then(response => {
+        console.log(response.data)})
+      .catch(error => {alert(error)})
 }
 
 function cancelEdit() {
@@ -116,7 +122,58 @@ function saveShopInfo() {
 }
 
 function saveSettings() {
+  axios.put(`http://localhost:8001/business/update/${businessId}`,business.value)
+      .then(response => {
+        console.log(response.data)})
+      .catch(error => {alert(error)})
   alert('店铺设置已保存');
+}
+
+function uploadAddedPhoto (e) {
+  // 利用fileReader对象获取file
+  var file = e.target.files[0];
+  var filesize = file.size;
+  if (filesize > 2101440) {
+    // 图片大于2MB
+
+  }
+  var reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = (e) => {
+    // 读取到的图片base64 数据编码 将此编码字符串传给后台即可
+   addedFood.value.foodImg=e.target.result
+  }
+}
+function uploadPhoto (e,index) {
+  // 利用fileReader对象获取file
+  var file = e.target.files[0];
+  var filesize = file.size;
+  if (filesize > 2101440) {
+    // 图片大于2MB
+
+  }
+  var reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = (e) => {
+    // 读取到的图片base64 数据编码 将此编码字符串传给后台即可
+    foods.value[index].foodImg=e.target.result
+    foods.value[index].foodPrice = 3.0
+  }
+}
+function uploadBusinessPhoto (e) {
+  // 利用fileReader对象获取file
+  var file = e.target.files[0];
+  var filesize = file.size;
+  if (filesize > 2101440) {
+    // 图片大于2MB
+
+  }
+  var reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = (e) => {
+    // 读取到的图片base64 数据编码 将此编码字符串传给后台即可
+    business.value.foodImg=e.target.result
+  }
 }
 </script>
 
