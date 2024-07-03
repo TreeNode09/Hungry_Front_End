@@ -212,6 +212,31 @@ input:focus-visible
 {
     outline-color: var(--green-dim);
 }
+
+select
+{
+  display: inline-block;
+
+  color: var(--green-main);
+  font-size: 20px;
+
+  height: 48px;
+  width: 100px;
+  margin-left: 10px;
+  border-radius: 10px;
+  border: 2px solid var(--green-main);
+}
+
+select:focus-visible
+{
+    outline-color: var(--green-dim);
+}
+
+small
+{
+  color: var(--red-main);
+  font-size: 15px;
+}
 </style>
 
 <!--变量-->

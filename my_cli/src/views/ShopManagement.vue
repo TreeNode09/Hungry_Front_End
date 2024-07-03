@@ -29,6 +29,8 @@
       </label>
 
       <button @click="saveSettings">保存设置</button>
+      <a href="http://localhost:8080/map">设置地址详情</a>
+
 
     </div>
 
@@ -62,17 +64,24 @@
 <script setup>
 import {onMounted, ref} from 'vue';
 import axios from "axios";
-
+import { useRoute } from 'vue-router'
 const business = ref({});
 const businessId = "10001";
 const foods = ref([]);
 const isEditing = ref(false);
 const editIndex = ref(-1);
 const addedFood = ref({});
+
+const address = ref(useRoute().query.address)
+
 onMounted(() =>{
+
   axios.get(`http://localhost:8001/business/getInfo/${businessId}`
 
-  ).then(response => {business.value = response.data.data
+  ).then(response => {
+    business.value = response.data.data
+
+    business.value.businessAddress = address.value
     console.log(business.value)})
       .catch(error => {alert(error)})
   axios.get(`http://localhost:8001/food/${businessId}`

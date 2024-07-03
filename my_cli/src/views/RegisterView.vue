@@ -104,11 +104,6 @@ input[type="text"], input[type="password"]
     width: 300px;
 }
 
-small
-{
-    color: var(--red-main);
-}
-
 .local
 {
     display: flex;

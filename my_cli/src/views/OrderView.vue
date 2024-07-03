@@ -7,7 +7,7 @@
         <div class="left">
             <h2>{{ business.businessName }}</h2>
             <h6>￥{{ business.startPrice }}起送，配送费￥{{ business.deliveryPrice }}</h6>
-          <h6>地址：<a href="">{{ business.businessAddress }}</a></h6>
+          <h6>地址：<a href="http://localhost:8080/map-search">{{ business.businessAddress }}</a></h6>
             <h6>介绍：{{ business.businessExplain }}</h6>
         </div>
     </div>
@@ -29,6 +29,7 @@
         <button v-else class="center" @click="toPay"><div class="center">确认订单</div></button>
     </footer>
 </div>
+  <MapSearch :businessName="business.businessName" />
 </template>
 
 <script setup>
@@ -39,6 +40,8 @@ import { useCartStore } from "@/store/CartStore.js";
 
 import food from '@/components/FoodBar.vue'
 import cart from '@/components/CartFoodBar.vue'
+import axios from "axios";
+import MapSearch from './MapSearch.vue'
 
 const foodList = ref([])
 
@@ -63,6 +66,28 @@ onMounted(() =>
   })
 
   axios.get(`http://localhost:8001/cart/getInfo`,
+  {params:{businessId:business.businessId,userId:userInfo.userId}}
+  ).then(response => {
+    console.log(response.data.data)
+    cartFoods.value = response.data.data
+    for(var j= 0;j<cartFoods.value.length;j++){
+      axios.get(`http://localhost:8001/food/getInfo`,
+          {params:{foodId:cartFoods.value[j].foodId}}
+      ).then(response => {
+        console.log(response.data.data.foodName)
+        // this.$set(cartFoods.value[j],"name",response.data.data.foodName)
+        // this.$set(cartFoods.value[j],"price",response.data.data.foodPrice)
+        console.log(cartFoods.value[j])
+      })
+          .catch(error => {alert(error)})
+    }
+  })
+      .catch(error => {alert(error)})
+  window.localStorage.setItem('localBusiness', JSON.stringify(business.businessAddress))
+})
+const cartFoods = ref([])
+const isEmpty = ref(true)   //购物车是否为空，控制购物车按钮样式
+const foodList = ref([])
   {params:{businessId:business.businessId,userId:userInfo.userId}})
   .then(response =>
   {
