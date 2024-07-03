@@ -127,14 +127,6 @@ input[type="text"], input[type="password"]
     margin: auto 0;
 }
 
-input[type="checkbox"]
-{
-    width: 30px;
-    margin-right: 10px;
-
-    box-shadow: none;
-}
-
 button
 {
     width: 100px;

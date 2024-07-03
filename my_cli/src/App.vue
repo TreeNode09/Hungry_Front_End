@@ -213,18 +213,27 @@ input:focus-visible
     outline-color: var(--green-dim);
 }
 
+input[type="checkbox"]
+{
+    width: 30px;
+    margin-right: 10px;
+
+    box-shadow: none;
+}
+
 select
 {
-  display: inline-block;
+    display: inline-block;
 
-  color: var(--green-main);
-  font-size: 20px;
+    color: var(--green-main);
+    color: var(--green-dim);
+    font-size: 20px;
 
-  height: 48px;
-  width: 100px;
-  margin-left: 10px;
-  border-radius: 10px;
-  border: 2px solid var(--green-main);
+    height: 48px;
+    width: 100px;
+    margin-left: 10px;
+    border-radius: 10px;
+     border: 2px solid var(--green-main);
 }
 
 select:focus-visible
@@ -234,8 +243,13 @@ select:focus-visible
 
 small
 {
-  color: var(--red-main);
-  font-size: 15px;
+    display: inline-block;
+
+    color: var(--red-main);
+    font-size: 15px;
+
+    margin-top: 5px;
+    margin-left: 10px;
 }
 </style>
 
