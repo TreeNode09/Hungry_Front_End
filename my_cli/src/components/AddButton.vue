@@ -10,24 +10,31 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useCartStore } from "@/store/CartStore";
 
+const prop = defineProps(['quantity', 'id'])
 const emit = defineEmits(['updateCount'])
-defineExpose({clearCount})
+defineExpose({clearCount, setCount})
 
-const count = ref(0)
+const cartStore = useCartStore()
+const count = ref(prop.quantity)
 
 function add(){
     count.value++
-    emit('updateCount', count.value)
+  console.log(count.value)
+    cartStore.updateStore(prop.id, count)
 }
 
 function remove(){
     count.value--
-    emit('updateCount', count.value)
+    cartStore.updateStore(prop.id, count)
 }
 
 function clearCount(){
     count.value = 0
+}
+function  setCount(newCount){
+  count.value = newCount
 }
 </script>
 

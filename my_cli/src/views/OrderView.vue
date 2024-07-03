@@ -2,7 +2,7 @@
 <div class="left order">
     <div class="business margin-2">
         <div class="left">
-            <img :src="business.businessImg" :alt="business.name">
+            <img :src="business.businessImg" :alt="business.businessName">
         </div>
         <div class="left">
             <h2>{{ business.businessName }}</h2>
@@ -11,21 +11,21 @@
             <h6>介绍：{{ business.businessExplain }}</h6>
         </div>
     </div>
-    <food v-for="food in foods" :key="food.id" :food="food" @updateFood="updateFood" ref="foodList"></food>
+    <food v-for="food in cartStore.allFoods" :key="food.foodId" :food="food" ref="foodList"></food>
 </div>
 <div class="right cart">
     <header>
         <div class="left"><h2 class="margin-1">购物车</h2></div>
         <div class="right">
-            <button v-if="isEmpty" class="disabled"><div class="center">清空</div></button>
+            <button v-if="cartStore.getCartFoodsCount === 0" class="disabled"><div class="center">清空</div></button>
             <button v-else @click="emptyCart"><div class="center">清空</div></button>
         </div>
     </header>
     <div class="detail">
-        <cart v-for="cartFood in cartFoods" :food="cartFood"></cart>
+        <cart v-for="food in cartStore.cartFoods" :food="food"></cart>
     </div>
     <footer>
-        <button v-if="isEmpty" class="center disabled"><div class="center">确认订单</div></button>
+        <button v-if="cartStore.getCartFoodsCount === 0" class="center disabled"><div class="center">确认订单</div></button>
         <button v-else class="center" @click="toPay"><div class="center">确认订单</div></button>
     </footer>
 </div>
@@ -34,87 +34,65 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import router from "@/router";
+import axios from "axios";
+import { useCartStore } from "@/store/CartStore.js";
+
 import food from '@/components/FoodBar.vue'
 import cart from '@/components/CartFoodBar.vue'
-import axios from "axios";
-
-const userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
-const business = JSON.parse(sessionStorage.getItem("business"))
-const foods = ref([])
-onMounted(() =>{
-  axios.get(`http://localhost:8001/food/${business.businessId}`
-
-  ).then(response => {foods.value = response.data.data
-  console.log(foods.value)})
-      .catch(error => {alert(error)})
-  axios.get(`http://localhost:8001/cart/getInfo`,
-  {params:{businessId:business.businessId,userId:userInfo.userId}}
-  ).then(response => {
-    console.log(response.data.data)
-    cartFoods.value = response.data.data
-    for(var j= 0;j<cartFoods.value.length;j++){
-      axios.get(`http://localhost:8001/food/getInfo`,
-          {params:{foodId:cartFoods.value[j].foodId}}
-      ).then(response => {
-        console.log(response.data.data.foodName)
-        // this.$set(cartFoods.value[j],"name",response.data.data.foodName)
-        // this.$set(cartFoods.value[j],"price",response.data.data.foodPrice)
-        console.log(cartFoods.value[j])
-      })
-          .catch(error => {alert(error)})
-    }
-  })
-      .catch(error => {alert(error)})
-})
-const cartFoods = ref([])
-const isEmpty = ref(true)   //购物车是否为空，控制购物车按钮样式
 
 const foodList = ref([])
 
-function updateFood(newFood){
-    for(var i = 0; i < cartFoods.value.length; i++){
-        if(newFood.foodId === cartFoods.value[i].foodId){
-            cartFoods.value[i].quantity = newFood.quantity
-            if(cartFoods.value[i].quantity === 0){
-                cartFoods.value.splice(i, 1)
-                if(cartFoods.value.length === 0){
-                    isEmpty.value = true
-                }
-            }
-            updateCart()
-            return
+const cartStore = useCartStore()
+
+const userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
+const business = JSON.parse(sessionStorage.getItem("business"))
+cartStore.setUserId(userInfo.userId)
+cartStore.setBusinessId(business.businessId)
+
+onMounted(() =>
+{
+  axios.get(`http://localhost:8001/food/${business.businessId}`)
+  .then(response =>
+  {
+    cartStore.setAllFoods(response.data.data)
+    //console.log(foods.value)
+  })
+  .catch(error =>
+  {
+    alert(error)
+  })
+
+  axios.get(`http://localhost:8001/cart/getInfo`,
+  {params:{businessId:business.businessId,userId:userInfo.userId}})
+  .then(response =>
+  {
+    cartStore.setCartFoods(response.data.data)
+
+    for(var i = 0; i < cartStore.getAllFoodsCount; i++)
+    {
+      cartStore.allFoods[i]['quantity'] = 0
+      for(var j = 0; j < cartStore.getCartFoodsCount; j++){
+        if(cartStore.allFoods[i].foodId === cartStore.cartFoods[j].foodId){
+          console.log(cartStore.allFoods[i], cartStore.cartFoods[j])
+          //金风玉露一相逢，便胜却人间无数
+          cartStore.allFoods[i].quantity = cartStore.cartFoods[j].quantity
+
+          cartStore.cartFoods[j]['name'] = cartStore.allFoods[i].foodName
+          cartStore.cartFoods[j]['price'] = cartStore.allFoods[i].foodPrice
         }
+      }
     }
-    // console.log("shuohua")
-    cartFoods.value.push(newFood)
-    isEmpty.value = false
-    // return
-}
+  })
+  .catch(error =>
+  {
+    alert(error)
+  })
+})
+
+const cartFoodCount = ref(cartStore.getCartFoodsCount)  //购物车是否为空，控制购物车按钮样式
 
 function emptyCart(){
-    cartFoods.value = []
-    isEmpty.value = true
-    for(var i = 0; i < foodList.value.length; i++){
-        foodList.value[i].clearFood()
-    }
-}
-function updateCart() {
-  for (var j = 0; j < cartFoods.value.length; j++) {
-    console.log(cartFoods.value[j].quantity)
-    axios.post(`http://localhost:8001/cart/update`,
-        {
-          foodId: cartFoods.value[j].foodId,
-          quantity: cartFoods.value[j].quantity,
-          businessId: business.businessId,
-          userId: userInfo.userId
-        })
-        .then(response => {
-          console.log(response)
-        })
-        .catch(error => {
-          alert(error)
-        })
-  }
+    cartStore.emptyCart()
 }
 const toPay = () => {
   console.log(business.businessId,userInfo.userId)
