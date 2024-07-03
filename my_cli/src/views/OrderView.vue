@@ -7,7 +7,7 @@
         <div class="left">
             <h2>{{ business.businessName }}</h2>
             <h6>￥{{ business.startPrice }}起送，配送费￥{{ business.deliveryPrice }}</h6>
-          <h6>地址：<a href="">{{ business.businessAddress }}</a></h6>
+          <h6>地址：<a href="http://localhost:8080/map-search">{{ business.businessAddress }}</a></h6>
             <h6>介绍：{{ business.businessExplain }}</h6>
         </div>
     </div>
@@ -29,6 +29,7 @@
         <button v-else class="center" @click="toPay"><div class="center">确认订单</div></button>
     </footer>
 </div>
+  <MapSearch :businessName="business.businessName" />
 </template>
 
 <script setup>
@@ -37,6 +38,7 @@ import router from "@/router";
 import food from '@/components/FoodBar.vue'
 import cart from '@/components/CartFoodBar.vue'
 import axios from "axios";
+import MapSearch from './MapSearch.vue'
 
 const userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
 const business = JSON.parse(sessionStorage.getItem("business"))
@@ -65,10 +67,10 @@ onMounted(() =>{
     }
   })
       .catch(error => {alert(error)})
+  window.localStorage.setItem('localBusiness', JSON.stringify(business.businessAddress))
 })
 const cartFoods = ref([])
 const isEmpty = ref(true)   //购物车是否为空，控制购物车按钮样式
-
 const foodList = ref([])
 
 function updateFood(newFood){

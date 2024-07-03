@@ -70,11 +70,7 @@ const routes = [
     name: 'ShopManagement',
     component: ShopManagement,
   },
-    {
-    path: '/businessManagement',
-    name: 'businessManagement',
-    component: () => import('@/views/BusinessManagementView.vue')
-  },
+
   {
     path: '/map',
     name: 'map', //地图页面
