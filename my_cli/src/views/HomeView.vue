@@ -48,7 +48,7 @@
             <span>店铺管理</span>
             </button>
             <button @click="toShopListManagement">
-                <img src="@/assets/icons/img_1.png" alt="管理商家列表">
+                <img src="@/assets/icons/img_2.png" alt="管理商家列表">
                 <span>管理商家列表</span>
             </button>
         </div>
