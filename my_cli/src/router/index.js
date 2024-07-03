@@ -3,6 +3,8 @@ import Welcome from '@/views/WelcomeView.vue';
 import OrderHistory from '../components/OrderHistory.vue';
 import AddressManagement from '../views/AddressManagement.vue';
 import ShopManagement from '../views/ShopManagement.vue';
+import Map from '../views/Map.vue';
+import MapSearch from '../views/MapSearch.vue';
 
 
 const routes = [
@@ -66,6 +68,16 @@ const routes = [
     path: '/businessManagement',
     name: 'businessManagement',
     component: () => import('@/views/BusinessManagementView.vue')
+  },
+  {
+    path: '/map',
+    name: 'map', //地图页面
+    component: Map
+  },
+  {
+    path: '/map-search',
+    name: 'mapsearch', //地图详情页面
+    component: MapSearch
   },
 
 ];
