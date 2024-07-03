@@ -98,12 +98,15 @@ const toPay = () => {
   console.log(business.businessId,userInfo.userId)
   axios.get(`http://localhost:8001/order/produce`,
       {params:{businessId:business.businessId,userId:userInfo.userId}})
-      .then(response => {console.log(response)})
+      .then(response => {
+        console.log(response)
+        router.push({
+          path: '/pay',
+          query: {totalPrice:response.data.data.orderTotal,orderId:response.data.data.orderId}
+        })
+        cartStore.emptyCart()
+      })
       .catch(error => {alert(error)})
-  router.push({
-    path: '/pay',
-    query: {}
-  })
 }
 </script>
 

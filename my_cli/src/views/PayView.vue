@@ -7,7 +7,7 @@
         <h2 class="white"><span style="color: var(--green-pale)">订</span>单信息</h2>
         <div class="detail">
             <header><h4>{{ orderInfo.business }}</h4></header>
-            <order v-for="foodDetail in foodDetails" :food="foodDetail"></order>
+            <order v-for="i in foodDetails.length" :food="foodDetails[i]"></order>
         </div>
         <footer class="margin-2">
             <div class="left"><h4>总价：</h4></div>
@@ -22,7 +22,7 @@
         <div class="top">
             <h2><span style="color: var(--yellow-green-pale)">收</span>货地址</h2>
             <h4>{{ userInfo.address }}</h4>
-            <h6>{{ userInfo.name }} {{ userInfo.tel }}</h6>
+            <h6>{{ userInfo.userName }} {{ userInfo.tel }}</h6>
         </div>
     </div>
     <div class="margin-2 white method">
@@ -37,24 +37,45 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import {onMounted, ref} from 'vue'
 import router from '@/router'
 import order from '@/components/OrderBar.vue'
+import {useRoute} from "vue-router";
+import axios from "axios";
 
-const orderInfo = ref({id: 10001, business: "薯霸王薯条", totalPrize: 100.98})
-const foodDetails = ref([
-    {name: "小薯条", totalPrize: 11.99, count: 2},
-    {name: "小薯条", totalPrize: 11.99, count: 2},
-    {name: "小薯条", totalPrize: 11.99, count: 2},
-    {name: "小薯条", totalPrize: 11.99, count: 2},
-    {name: "小薯条", totalPrize: 11.99, count: 2},
-    {name: "小薯条", totalPrize: 11.99, count: 2},
-    {name: "小薯条", totalPrize: 11.99, count: 2},
-    {name: "小薯条", totalPrize: 11.99, count: 2},
-    {name: "小薯条", totalPrize: 11.99, count: 2}
-])
-const userInfo = ref({address: "珞瑜路1037号华中科技大学韵苑宿舍", name: "张三", tel: 13609999999})
-
+const business = JSON.parse(sessionStorage.getItem("business"))
+const totalPrice = useRoute().query.totalPrice
+const orderId = useRoute().query.orderId
+console.log(totalPrice)
+const orderInfo = ref({id: business.businessId, business: business.businessName, totalPrize: totalPrice})
+const foodDetails = ref([])
+const userInfo = ref(JSON.parse(window.localStorage.getItem('userInfo')))
+console.log(userInfo)
+onMounted(() =>
+{
+  axios.get(`http://localhost:8001/deliveryaddress/get`,{params:{userId:userInfo.value.userId}})
+      .then(response =>
+      {
+       console.log(response.data.data)
+        userInfo.value["address"] = response.data.data.address
+        userInfo.value["tel"] = response.data.data.contactTel
+      })
+      .catch(error =>
+      {
+        alert(error)
+      })
+  axios.get(`http://localhost:8001/orderDetail/get`,{params:{orderId:orderId}})
+      .then(response =>
+      {
+        // console.log(response.data.data)
+        foodDetails.value=response.data.data
+        console.log((foodDetails.value))
+      })
+      .catch(error =>
+      {
+        alert(error)
+      })
+})
 function pay(){
   router.push({
     path: '/succeed'
