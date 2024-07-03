@@ -17,7 +17,7 @@ import { ref } from 'vue'
 const userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
 //console.log(userInfo)
 //判断是否登录，登录则显示欢迎信息
-const login = true
+const login = ref(false)
 </script>
 
 <style scoped>
