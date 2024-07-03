@@ -36,7 +36,8 @@
     </div>
     <div v-else class="right">
       <button @click="editInfo(index)"><div class="center">编辑</div></button>
-      <button @click="removeInfo(index)" class="delete"><div class="center">删除</div></button>
+      <button v-if="!isDefault[index]" @click="removeInfo(index)" class="delete"><div class="center">删除</div></button>
+      <button v-else class="delete disabled"><div class="center">删除</div></button>
     </div>
   </li>
 </ul>
@@ -77,14 +78,18 @@ function saveEdit(index) {
   if(addressEmpty.value || nameEmpty.value || telEmpty.value) {return}
 
   infos.value[index] = {address: newInfo.value.address, name: newInfo.value.name, sex: newInfo.value.sex, tel: newInfo.value.tel}
-  //post
+  //post to address
 
   isEditing.value[index] = false
   if(isNew.value) {
     newInfo.value.address = ''
     isNew.value = false
+    if(index === 0){
+      isDefault.value[index] = true
+      //post to user
+
+    }
   }
-  console.log(infos.value[index])
 }
 
 function cancelEdit(index) {
@@ -105,6 +110,7 @@ function removeInfo(index) {
   //delete?
 
   isEditing.value.splice(index, 1)
+  isDefault.value.splice(index, 1)
 }
 
 function setDefault(index){
@@ -112,10 +118,13 @@ function setDefault(index){
     isDefault.value[i] = false
   }
   isDefault.value[index] = true
+  //post to user
+  
 }
 
 onMounted(() => {
   //get
+
   })
 </script>
 
@@ -196,5 +205,12 @@ button {
 button.delete:hover
 {
   background-color: var(--red-main);
+}
+
+.right > button.disabled
+{
+    color: #ccc;
+
+    pointer-events: none;
 }
 </style>
