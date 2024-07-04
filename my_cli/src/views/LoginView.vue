@@ -90,6 +90,23 @@ function login(){
         }
         else if(option.value === 1) {
         //商家登录
+            axios({
+                    method: "post",
+                    baseURL: "http://localhost:8001",
+                    url: '/user/login',
+                    data: loginInfo.value,
+                })
+                .then(response => {
+                isOK.value = response.data.result
+                userInfo.value = response.data.data
+                token.value = response.data.msg
+
+                if(isOK.value === true) {
+                    window.localStorage.setItem('businessInfo', JSON.stringify(userInfo.value))
+                    router.push('/shop-management')
+                }
+                })
+                .catch(error => {alert(error)})
         }
         else if(option.value === 2) {
         //管理员登录

@@ -66,7 +66,7 @@ import {onMounted, ref} from 'vue';
 import axios from "axios";
 import { useRoute } from 'vue-router'
 const business = ref({});
-const businessId = "10001";
+const businessId = window.localStorage.getItem('businessId');
 const foods = ref([]);
 const isEditing = ref(false);
 const editIndex = ref(-1);
