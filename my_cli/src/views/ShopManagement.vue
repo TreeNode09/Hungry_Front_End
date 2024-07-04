@@ -124,6 +124,7 @@ function removeFood(index) {
     { params: { foodId: foods.value[index].foodId } })
     .then(response => {
       console.log(response.data)
+      foods.value.splice(index,1)
     })
     .catch(error => { alert(error) })
 }
