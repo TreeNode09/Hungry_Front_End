@@ -64,23 +64,35 @@ import {onMounted, ref} from 'vue';
 import axios from "axios";
 
 const business = ref({});
-const businessId = "10001";
+const businessId = window.localStorage.getItem('businessId');
 const foods = ref([]);
 const isEditing = ref(false);
 const editIndex = ref(-1);
 const addedFood = ref({});
-onMounted(() =>{
-  axios.get(`http://localhost:8001/business/getInfo/${businessId}`
+onMounted(() => {
 
-  ).then(response => {business.value = response.data.data
-    console.log(business.value)})
-      .catch(error => {alert(error)})
-  axios.get(`http://localhost:8001/food/${businessId}`
+  if (businessId) {
+    axios.get(`http://localhost:8001/business/getInfo/${businessId}`)
+      .then(response => {
+        business.value = response.data.data;
+        console.log(business.value);
+      })
+      .catch(error => {
+        alert(error);
+      });
 
-  ).then(response => {foods.value = response.data.data
-    console.log(foods.value)})
-      .catch(error => {alert(error)})
-})
+    axios.get(`http://localhost:8001/food/${businessId}`)
+      .then(response => {
+        foods.value = response.data.data;
+        console.log(foods.value);
+      })
+      .catch(error => {
+        alert(error);
+      });
+  } else {
+    console.log('没有找到 businessId');
+  }
+});
 
 function addFood() {
   addedFood.value = { foodName: '', foodImg: '', foodPrice: 0 };

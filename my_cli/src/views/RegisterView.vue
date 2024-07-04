@@ -75,13 +75,21 @@ function register(){
         }
         else if(option.value === 1){
             //商家注册
+            axios.post('http://localhost:8001/business/register', {businessName: name.value}, {params:{password: password.value}}) //商家列表新建一个空的商家
+            .then(response => {isOK.value = response.data.result})
+            .catch(error => {alert(error)})
         }
         else if(option.value === 2){
             //管理员注册
         }
 
         if(isOK.value === true){
-          router.push('/home')
+            if(option.value === 0){
+                router.push('/home')
+            }
+            else if(option.value === 1){
+                router.push('/shop-management')
+            }
         }
         else(alert('注册失败！'))
     }
