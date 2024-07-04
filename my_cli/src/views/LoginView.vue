@@ -40,7 +40,7 @@ const token = ref('')
 const nameEmpty = ref(false)
 const passwordEmpty = ref(false)
 const notFound = ref(false)
-
+const businessId = ref('')
 const option = ref(0)
 const identities = ref([
     {id: 0, buttonName: "用户", name: "用户名", color: "var(--green-main)", isChecked: true},
@@ -97,12 +97,11 @@ function login(){
                     data: loginInfo.value,
                 })
                 .then(response => {
+                console.log(isOK.value)
+                console.log(response.data.data.userId)
                 isOK.value = response.data.result
-                userInfo.value = response.data.data
-                token.value = response.data.msg
-
                 if(isOK.value === true) {
-                    window.localStorage.setItem('businessInfo', userInfo.value)
+                    window.localStorage.setItem('userId', response.data.data.userId)
                     router.push('/shop-management')
                 }
                 })

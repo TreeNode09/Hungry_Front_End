@@ -10,6 +10,7 @@
 <script setup>
 import { ref,onMounted, onUnmounted } from 'vue';
 import router from "@/router";
+import axios from 'axios';
 
 let map = null;
 
@@ -130,6 +131,15 @@ function showLocationDetails(point) {
 
 
 function ConfirmAddress() {
+  var businessId = window.localStorage.getItem('businessId');
+  axios.get(`http://localhost:8001/business/updateAddress/${businessId}`, {params:{
+    businessAddress: address.value    
+  }}).then(Response => {
+    console.log(Response.data.data.businessAddress);
+  }).
+    catch(error => {
+    console.log(error);
+  });
   router.push({
     path: '/shop-management',
     query: {
