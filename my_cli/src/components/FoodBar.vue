@@ -8,7 +8,7 @@
         <h6>{{ food.foodExplain }}</h6>
         <div class="left margin-1"><h5>￥{{ food.foodPrice }}</h5></div>
         <div class="right add margin-1">
-            <add @updateCount="updateFood" ref="addButton"></add>
+            <add ref="addButton" :quantity="food.quantity" :id="food.foodId"></add>
         </div>
     </div>
 </div>
@@ -16,19 +16,20 @@
 
 <script setup>
 import { ref } from 'vue'
+
 import add from '@/components/AddButton.vue'
 
 const prop = defineProps(['food'])
-const emit = defineEmits(['updateFood'])
-defineExpose({clearFood})
+console.log(prop.food.quantity)
+defineExpose({clearFood, setCount})
 
-const updateFood = (count) => {
-    emit('updateFood', {foodId: prop.food.foodId, name: prop.food.foodName, price: prop.food.foodPrice, quantity: count})
-}
 const addButton = ref("")
 
 function clearFood(){
     addButton.value.clearCount()
+}
+function setCount(newCount){
+  addButton.value.setCount(newCount)
 }
 </script>
 

@@ -2,12 +2,14 @@
   <div>
     <input v-model="address" type="text" placeholder="输入地址" />
     <button @click="searchAddress()">搜索</button>
+    <button @click="ConfirmAddress()">确认地址</button>
     <div id="container" style="height: 100vh;"></div>
   </div>
 </template>
 
 <script setup>
 import { ref,onMounted, onUnmounted } from 'vue';
+import router from "@/router";
 
 let map = null;
 
@@ -102,8 +104,6 @@ function searchAddress() {
 }
 
 
-
-
 function showLocationDetails(point) {
   var infoWindow = new BMapGL.InfoWindow('', {
     width: 250,
@@ -114,12 +114,12 @@ function showLocationDetails(point) {
   var gc = new BMapGL.Geocoder();
   gc.getLocation(point, function (rs) {
     var addComp = rs.addressComponents;
-    var address = addComp.province + ', ' + addComp.city + ', ' + addComp.district + ', ' + addComp.street + ', ' + addComp.streetNumber;
-
+    var address1 = addComp.province + ', ' + addComp.city + ', ' + addComp.district + ', ' + addComp.street + ', ' + addComp.streetNumber ;
+    address.value = address1;
     // 将 BD-09 坐标转换为 WGS-84 坐标
     var wgsPoint = convertBD09ToWGS84(point.lng, point.lat);
 
-    infoWindow.setContent(address + '<br>经度: ' + wgsPoint.lng + ', 纬度: ' + wgsPoint.lat);
+    infoWindow.setContent(address1 + '<br>经度: ' + wgsPoint.lng + ', 纬度: ' + wgsPoint.lat);
     map.openInfoWindow(infoWindow, point);
   });
 }
@@ -130,10 +130,12 @@ function showLocationDetails(point) {
 
 
 function ConfirmAddress() {
-
-
-  // 弹出对话框显示地址和坐标信息
-  alert("\n经度: " );
+  router.push({
+    path: '/shop-management',
+    query: {
+      address: address.value
+    }
+  });
 
 }
 

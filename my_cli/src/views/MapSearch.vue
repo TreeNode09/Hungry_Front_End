@@ -5,6 +5,7 @@
 <script setup>
 import { onMounted, onUnmounted } from 'vue';
 
+const businessAddress = JSON.parse(window.localStorage.getItem('localBusiness'))
 let map = null;
 
 onMounted(() => {
@@ -19,10 +20,9 @@ onUnmounted(() => {
 
 function initMap() {
   map = new BMapGL.Map('container');
-  map.centerAndZoom('武汉市', 15);
-
+  map.centerAndZoom(businessAddress, 15);
   var myGeo = new BMapGL.Geocoder();
-  myGeo.getPoint('武汉市', function(point) {
+  myGeo.getPoint(businessAddress, function(point) {
     if (point) {
       map.centerAndZoom(point, 15);
       var marker = new BMapGL.Marker(point);
@@ -82,5 +82,8 @@ function convertBD09ToWGS84(bdLng, bdLat) {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+.anchorBL{
+  display:none;
 }
 </style>

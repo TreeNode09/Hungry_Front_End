@@ -131,11 +131,6 @@ input[type="text"], input[type="password"]
     width: 300px;
 }
 
-small
-{
-    color: var(--red-main);
-}
-
 .local
 {
     display: flex;
@@ -147,14 +142,6 @@ small
 .local > *
 {
     margin: auto 0;
-}
-
-input[type="checkbox"]
-{
-    width: 30px;
-    margin-right: 10px;
-
-    box-shadow: none;
 }
 
 button
