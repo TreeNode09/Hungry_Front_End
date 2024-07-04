@@ -40,8 +40,8 @@
       <button v-else class="delete disabled"><div class="center">删除</div></button>
     </div>
   </li>
-</ul>
-<button v-if="!isNew" @click="addInfo" class="margin-1"><div class="center">添加地址</div></button>
+</ul>               <!--后端只实现了设置一个地址的功能-->
+<button v-if="!isNew && infos.length === 0" @click="addInfo" class="margin-1"><div class="center">添加地址</div></button>
 <div v-if="infos.length === 0" class="out">
   <h2 class="center">你尚未添加任何地址。</h2>
 </div>
@@ -79,21 +79,22 @@ function saveEdit(index) {
   else {telEmpty.value = false}
 
   if(addressEmpty.value || nameEmpty.value || telEmpty.value) {return}
-
+  //delete old address
+  
   infos.value[index] = {
     contactName: newInfo.value.name,
     contactSex: newInfo.value.sex,
     contactTel: newInfo.value.tel,
     address: newInfo.value.address
   }
-  //post to address
+  //add new address
   
   isEditing.value[index] = false
   if(isNew.value) {
     isNew.value = false
     if(index === 0){
       isDefault.value[index] = true
-      //post to user
+      //change user address
 
     }
   }
@@ -114,7 +115,7 @@ function editInfo(index) {
 
 function removeInfo(index) {
   infos.value.splice(index, 1)
-  //delete?
+  //delete address
 
   isEditing.value.splice(index, 1)
   isDefault.value.splice(index, 1)
