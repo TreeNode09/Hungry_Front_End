@@ -5,7 +5,7 @@
 <script setup>
 import { onMounted, onUnmounted } from 'vue';
 
-const businessAddress = JSON.parse(window.localStorage.getItem('localAddress'))
+const businessAddress = window.localStorage.getItem('localAddress')
 let map = null;
 
 onMounted(() => {
