@@ -24,10 +24,10 @@
       
     <div v-else class="left">
       <div class="saved">
-        <input type="checkbox" v-model="isDefault[index]" @click="setDefault(index)">
+        <button class="choice" :class="{checked: isDefault[index]}" @click="setDefault(index)"></button>
         <h4>{{ info.address }}</h4>
       </div>
-      <h6>{{ info.name }} {{ info.sex }}  {{ info.tel }}</h6>
+      <h6>{{ info.contactName }} {{ info.contactSex }}  {{ info.contactTel }}</h6>
     </div>
 
     <div v-if="isEditing[index]" class="right">
@@ -60,10 +60,13 @@ const addressEmpty = ref(false)
 const nameEmpty = ref(false)
 const telEmpty = ref(false)
 
+const userId = JSON.parse(window.localStorage.getItem('userInfo'))
+
 function addInfo() {
   infos.value.push({})
   isEditing.value.push(true)
   isDefault.value.push(false)
+  newInfo.value.address = ''
   isNew.value = true
 }
 
@@ -77,12 +80,16 @@ function saveEdit(index) {
 
   if(addressEmpty.value || nameEmpty.value || telEmpty.value) {return}
 
-  infos.value[index] = {address: newInfo.value.address, name: newInfo.value.name, sex: newInfo.value.sex, tel: newInfo.value.tel}
+  infos.value[index] = {
+    contactName: newInfo.value.name,
+    contactSex: newInfo.value.sex,
+    contactTel: newInfo.value.tel,
+    address: newInfo.value.address
+  }
   //post to address
-
+  
   isEditing.value[index] = false
   if(isNew.value) {
-    newInfo.value.address = ''
     isNew.value = false
     if(index === 0){
       isDefault.value[index] = true
@@ -157,6 +164,7 @@ li.selected
 li > .left
 {
   width: calc(100% - 240px);
+  margin-left: 10px
 }
 
 li > .left > .info-line > .name
@@ -183,6 +191,23 @@ small > .name-error
 li > .left > .saved
 {
   display: flex;
+}
+
+li > .left > .saved > button.choice
+{
+  width: 30px;
+  height: 30px;
+  margin-top: 10px;
+}
+
+li > .left > .saved > button.choice:hover
+{
+  background-color: var(--green-main)
+}
+
+li > .left > .saved > button.checked
+{
+  border: 4px solid var(--green-main);
 }
 
 li > .left > .saved > h4
