@@ -101,7 +101,7 @@ function login(){
 
                 if(isOK.value === true) {
                     window.localStorage.setItem('businessInfo', JSON.stringify(userInfo.value))
-                    router.push('/shop-list-management')
+                    router.push('/shop-management')
                 }
                 })
                 .catch(error => {alert(error)})
