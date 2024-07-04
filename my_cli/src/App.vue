@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { ref, provide } from 'vue'
+import { ref } from 'vue'
 import hungryHeader from './components/Header.vue'
 import hungryMain from './components/MainArea.vue'
 
@@ -14,10 +14,6 @@ const userInfo = ref({})
 function login(info){
   userInfo.value = info
 }
-
-provide('userInfo', userInfo)
-//delTag, password, type, userId, userImg, userName, userSex
-
 </script>
 
 <!--杂项-->
