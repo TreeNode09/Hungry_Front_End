@@ -70,7 +70,13 @@ function register(){
         if(option.value === 0){
             //用户注册
             axios.post('http://localhost:8001/user/reg', {userName: name.value, password: password.value})
-                .then(response => {isOK.value = response.data.result})
+                .then(response => {
+                    isOK.value = response.data.result
+                    if(isOK.value === true){
+                        router.push('/home')
+                    }
+                    else(alert('注册失败！'))
+                })
                 .catch(error => {alert(error)})
         }
         else if(option.value === 1){
@@ -80,10 +86,7 @@ function register(){
             //管理员注册
         }
 
-        if(isOK.value === true){
-          router.push('/home')
-        }
-        else(alert('注册失败！'))
+        
     }
 }
 </script>
@@ -115,14 +118,6 @@ input[type="text"], input[type="password"]
 .local > *
 {
     margin: auto 0;
-}
-
-input[type="checkbox"]
-{
-    width: 30px;
-    margin-right: 10px;
-
-    box-shadow: none;
 }
 
 button

@@ -1,30 +1,33 @@
 <!-- src/views/AddressManagement.vue -->
 <template>
-<h2 class="margin-1">管理收货地址{{ newInfo }}</h2>
+<h2 class="margin-1">管理收货地址</h2>
 <ul>
-  <li v-for="(info, index) in infos" :key="index">
-    <div v-if="isEditing[index]" class="left" :class="{selected: selectedIndex === index}">
+  <li v-for="(info, index) in infos" :key="index" :class="{selected: isDefault[index]}">
+    <div v-if="isEditing[index]" class="left">
       <input placeholder="收货地址" v-model="newInfo.address" class="address">
       <small><span v-if="addressEmpty">请输入收货地址</span></small>
 
-      <div class="name-info margin-1">
-        <input placeholder="收货人" v-model="newInfo.name" class="name">
-        <select v-model="newInfo.sex">
-          <option value="先生" selected>先生</option>
-          <option value="女士">女士</option>
-        </select>
-        <small><span v-if="nameEmpty">请输入收货人姓名</span></small>
-      </div>
+        <div class="info-line margin-1">
+          <input placeholder="收货人" v-model="newInfo.name" class="name">
+          <select v-model="newInfo.sex">
+            <option value="先生" selected>先生</option>
+            <option value="女士">女士</option>
+          </select>
+          <input type="tel" placeholder="收货人电话" v-model="newInfo.tel" class="tel">
 
-      <div class="tel-info margin-1">
-        <input type="tel" placeholder="收货人电话" v-model="newInfo.tel" class="tel">
-        <small><span v-if="telEmpty">请输入收货人电话</span></small>
+          <small>
+            <span v-if="nameEmpty" class="name-error">请输入收货人姓名</span>
+            <span v-if="telEmpty">请输入收货人电话</span>
+          </small>
+        </div>
       </div>
-    </div>
+      
     <div v-else class="left">
-      <input type="checkbox" v-model="isDefault[index]">
-      <h4>{{ info.address }}</h4>
-      <h6>{{ info.name }} {{ info.sex }} {{ info.tel }}</h6>
+      <div class="saved">
+        <input type="checkbox" v-model="isDefault[index]" @click="setDefault(index)">
+        <h4>{{ info.address }}</h4>
+      </div>
+      <h6>{{ info.name }} {{ info.sex }}  {{ info.tel }}</h6>
     </div>
 
     <div v-if="isEditing[index]" class="right">
@@ -33,7 +36,8 @@
     </div>
     <div v-else class="right">
       <button @click="editInfo(index)"><div class="center">编辑</div></button>
-      <button @click="removeInfo(index)" class="delete"><div class="center">删除</div></button>
+      <button v-if="!isDefault[index]" @click="removeInfo(index)" class="delete"><div class="center">删除</div></button>
+      <button v-else class="delete disabled"><div class="center">删除</div></button>
     </div>
   </li>
 </ul>
@@ -47,9 +51,10 @@
 import { ref, onMounted } from 'vue'
 
 const infos = ref([])
-const newInfo = ref({address: '', name: '', sex: '', tel: ''})
+const newInfo = ref({address: '', name: '', sex: '先生', tel: ''})
 const isEditing = ref([])
 const isNew = ref(false)
+const isDefault = ref([])
 
 const addressEmpty = ref(false)
 const nameEmpty = ref(false)
@@ -58,6 +63,7 @@ const telEmpty = ref(false)
 function addInfo() {
   infos.value.push({})
   isEditing.value.push(true)
+  isDefault.value.push(false)
   isNew.value = true
 }
 
@@ -72,12 +78,17 @@ function saveEdit(index) {
   if(addressEmpty.value || nameEmpty.value || telEmpty.value) {return}
 
   infos.value[index] = {address: newInfo.value.address, name: newInfo.value.name, sex: newInfo.value.sex, tel: newInfo.value.tel}
-  //post
+  //post to address
 
   isEditing.value[index] = false
   if(isNew.value) {
     newInfo.value.address = ''
     isNew.value = false
+    if(index === 0){
+      isDefault.value[index] = true
+      //post to user
+
+    }
   }
 }
 
@@ -95,14 +106,25 @@ function editInfo(index) {
 }
 
 function removeInfo(index) {
-  addresses.value.splice(index, 1)
+  infos.value.splice(index, 1)
   //delete?
 
   isEditing.value.splice(index, 1)
+  isDefault.value.splice(index, 1)
+}
+
+function setDefault(index){
+  for(var i = 0; i < isDefault.value.length; i++){
+    isDefault.value[i] = false
+  }
+  isDefault.value[index] = true
+  //post to user
+  
 }
 
 onMounted(() => {
   //get
+
   })
 </script>
 
@@ -118,9 +140,18 @@ ul {
 }
 
 li {
-  height: 80px;
+  height: auto;
   padding: 15px 0;
   border-bottom: 1px solid #ccc;
+
+  transition: all 0.2s;
+}
+
+li.selected
+{
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 
 li > .left
@@ -128,33 +159,43 @@ li > .left
   width: calc(100% - 240px);
 }
 
-li > .left > .name-info
-{
-  display: inline-block;
-
-  width: 300px;
-}
-
-li > .left > .name-info > input
-{
-  display: inline-block;
-
-  width: calc(100% - 120px);
-}
-
-li > .left > .tel-info
+li > .left > .info-line > .name
 {
   display: inline-block;
 
   width: 200px;
 }
 
-li h4
+li > .left > .info-line > .tel
 {
+  display: inline-block;
+
+  width: calc(100% - 320px);
+  margin-left: 10px;
+}
+
+small > .name-error
+{
+  display: inline-block;
+  width: 320px;
+}
+
+li > .left > .saved
+{
+  display: flex;
+}
+
+li > .left > .saved > h4
+{
+  display: inline-block;
+
   padding: 9px 0;
 }
 
-
+li > .left > h6
+{
+  margin-left: 50px;
+}
 
 button {
   width: 100px;
@@ -164,5 +205,12 @@ button {
 button.delete:hover
 {
   background-color: var(--red-main);
+}
+
+.right > button.disabled
+{
+    color: #ccc;
+
+    pointer-events: none;
 }
 </style>

@@ -67,7 +67,8 @@ onMounted(() =>
 
   axios.get(`http://localhost:8001/cart/getInfo`,
   {params:{businessId:business.businessId,userId:userInfo.userId}}
-  ).then(response => {
+  ).then(response =>
+  {
     console.log(response.data.data)
     cartFoods.value = response.data.data
     for(var j= 0;j<cartFoods.value.length;j++){
