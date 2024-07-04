@@ -11,6 +11,7 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
 import router from '@/router'
 
 const toLogin = () => {
@@ -24,6 +25,10 @@ const toRegister = () => {
         path: '/register',
     })
 }
+
+onMounted(() => {
+    window.localStorage.setItem('isLocal', false)
+})
 </script>
 
 <style>

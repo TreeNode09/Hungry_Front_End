@@ -10,10 +10,7 @@ import { ref } from 'vue'
 import hungryHeader from './components/Header.vue'
 import hungryMain from './components/MainArea.vue'
 
-const userInfo = ref({})
-function login(info){
-  userInfo.value = info
-}
+const isLogin = ref(false)
 </script>
 
 <!--杂项-->
