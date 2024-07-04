@@ -71,7 +71,7 @@ function register(){
                     isOK.value = response.data.result
 
                     if(isOK.value === true){
-                        router.push('/home')
+                        router.push('/login')
                     }
                     else(alert('注册失败！'))
                 })

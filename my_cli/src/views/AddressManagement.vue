@@ -49,18 +49,19 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import axios from "axios";
 
 const infos = ref([])
 const newInfo = ref({address: '', name: '', sex: '先生', tel: ''})
 const isEditing = ref([])
 const isNew = ref(false)
-const isDefault = ref([])
+const isDefault = ref([true])
 
 const addressEmpty = ref(false)
 const nameEmpty = ref(false)
 const telEmpty = ref(false)
 
-const userId = JSON.parse(window.localStorage.getItem('userInfo'))
+const userId = JSON.parse(window.localStorage.getItem('userInfo')).userId
 
 function addInfo() {
   infos.value.push({})
@@ -79,16 +80,21 @@ function saveEdit(index) {
   else {telEmpty.value = false}
 
   if(addressEmpty.value || nameEmpty.value || telEmpty.value) {return}
-  //delete old address
-  
+
   infos.value[index] = {
     contactName: newInfo.value.name,
     contactSex: newInfo.value.sex,
     contactTel: newInfo.value.tel,
-    address: newInfo.value.address
+    address: newInfo.value.address,
+    userId: userId
   }
   //add new address
-  
+  axios.post(`http://localhost:8001/deliveryaddress/save`,
+      infos.value[index]
+  ).then(response => {
+    console.log(response.data.msg)
+  })
+      .catch(error => { alert(error) })
   isEditing.value[index] = false
   if(isNew.value) {
     isNew.value = false
@@ -131,7 +137,13 @@ function setDefault(index){
 }
 
 onMounted(() => {
-  //get
+  axios.get(`http://localhost:8001/deliveryaddress/get`,
+      {params:{userId:userId}}
+  ).then(response => {
+    console.log(response.data.data)
+    if(response.data.data !== null) {infos.value[0] = response.data.data}
+  })
+      .catch(error => { alert(error) })
 
   })
 </script>
