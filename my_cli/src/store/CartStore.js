@@ -20,14 +20,14 @@ export const useCartStore = defineStore('cart', () => {
     function updateStore(id, quantity){
         for(var i = 0; i < getCartFoodsCount.value; i++){
             if(cartFoods.value[i].foodId === id){
-                cartFoods.value[i].quantity = quantity.value
-                if(cartFoods.value[i].quantity === 0){
-                    cartFoods.value.splice(i, 1)
-                }
+                cartFoods.value[i].quantity = quantity
                 for(var j = 0; j < getAllFoodsCount.value; j++){
                     if(allFoods.value[j].foodId === cartFoods.value[i].foodId){
                         allFoods.value[j].quantity = quantity
                     }
+                }
+                if(cartFoods.value[i].quantity === 0){
+                    cartFoods.value.splice(i, 1)
                 }
                 updateCart()
                 return
@@ -52,7 +52,6 @@ export const useCartStore = defineStore('cart', () => {
 
     function updateCart() {
         for (var j = 0; j < cartFoods.value.length; j++) {
-            console.log(cartFoods.value[j].quantity)
             axios.post(`http://localhost:8001/cart/update`,
                 {
                     foodId: cartFoods.value[j].foodId,

@@ -7,7 +7,7 @@
         <h2 class="white"><span style="color: var(--green-pale)">订</span>单信息</h2>
         <div class="detail">
             <header><h4>{{ orderInfo.business }}</h4></header>
-            <order v-for="i in foodDetails.length" :food="foodDetails[i]"></order>
+            <order v-for="i in foodDetails" :food="i"></order>
         </div>
         <footer class="margin-2">
             <div class="left"><h4>总价：</h4></div>
@@ -22,7 +22,7 @@
         <div class="top">
             <h2><span style="color: var(--yellow-green-pale)">收</span>货地址</h2>
             <h4>{{ userInfo.address }}</h4>
-            <h6>{{ userInfo.userName }} {{ userInfo.tel }}</h6>
+          <h6>{{ userInfo.userName }}    {{ userInfo.tel }}</h6>
         </div>
     </div>
     <div class="margin-2 white method">

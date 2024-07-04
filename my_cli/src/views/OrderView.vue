@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import router from "@/router";
 import axios from "axios";
 import { useCartStore } from "@/store/CartStore.js";
@@ -49,7 +49,7 @@ const business = JSON.parse(sessionStorage.getItem("business"))
 cartStore.setUserId(userInfo.userId)
 cartStore.setBusinessId(business.businessId)
 
-onMounted(() =>
+onBeforeMount(() =>
 {
   axios.get(`http://localhost:8001/food/${business.businessId}`)
   .then(response =>

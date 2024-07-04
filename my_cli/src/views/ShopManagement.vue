@@ -87,9 +87,6 @@ onMounted(() => {
     .catch(error => {
        alert(error) 
       })
-
-
- 
 })
 
 

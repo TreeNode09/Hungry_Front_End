@@ -22,12 +22,12 @@ const count = ref(prop.quantity)
 function add(){
     count.value++
   console.log(count.value)
-    cartStore.updateStore(prop.id, count)
+    cartStore.updateStore(prop.id, count.value)
 }
 
 function remove(){
     count.value--
-    cartStore.updateStore(prop.id, count)
+    cartStore.updateStore(prop.id, count.value)
 }
 
 function clearCount(){
