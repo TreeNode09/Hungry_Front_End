@@ -7,7 +7,7 @@
         <div class="left">
             <h2>{{ business.businessName }}</h2>
             <h6>￥{{ business.startPrice }}起送，配送费￥{{ business.deliveryPrice }}</h6>
-          <h6>地址：<a href="">{{ business.businessAddress }}</a></h6>
+          <h6>地址：<a href="http://localhost:8080/map-search">{{ business.businessAddress }}</a></h6>
             <h6>介绍：{{ business.businessExplain }}</h6>
         </div>
     </div>
@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import router from "@/router";
 import axios from "axios";
 import { useCartStore } from "@/store/CartStore.js";
@@ -49,7 +49,7 @@ const business = JSON.parse(sessionStorage.getItem("business"))
 cartStore.setUserId(userInfo.userId)
 cartStore.setBusinessId(business.businessId)
 
-onMounted(() =>
+onBeforeMount(() =>
 {
   axios.get(`http://localhost:8001/food/${business.businessId}`)
   .then(response =>
@@ -87,6 +87,8 @@ onMounted(() =>
   {
     alert(error)
   })
+
+  window.localStorage.setItem('localAddress', business.businessAddress)
 })
 
 function emptyCart(){

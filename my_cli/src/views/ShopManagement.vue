@@ -38,58 +38,78 @@
     <div class="food-management">
       <h2>食品管理</h2>
       <button @click="addFood">新增食品</button>
-        <div v-if="isEditing" class="food-edit">
-          <h2>{{ editIndex === -1 ? '新增食品' : '编辑食品' }}</h2>
-          <input v-model="addedFood.foodName" placeholder="食品名称" />
-          <input @change="uploadAddedPhoto($event)" type="file" class="kyc-passin">
-          <img :src="addedFood.foodImg" alt="">
-          <input v-model="addedFood.foodPrice" placeholder="食品价格" type="number" />
-          <button @click="saveAddedFood">保存</button>
-          <button @click="cancelEdit">取消</button>
-        </div>
+      <div v-if="isEditing" class="food-edit">
+        <h2>{{ editIndex === -1 ? '新增食品' : '编辑食品' }}</h2>
+        <input v-model="addedFood.foodName" placeholder="食品名称" />
+        <input @change="uploadAddedPhoto($event)" type="file" class="kyc-passin">
+        <img :src="addedFood.foodImg" alt="">
+        <input v-model="addedFood.foodPrice" placeholder="食品价格" type="number" />
+        <button @click="saveAddedFood">保存</button>
+        <button @click="cancelEdit">取消</button>
       </div>
-      <ul>
-        <li v-for="(food, index) in foods" :key="index" class="food-item">
-          <input @change="uploadPhoto($event,index)" type="file" class="kyc-passin">
-          <img :src="food.foodImg" alt="">
-          <input v-model="food.foodName" placeholder="食品名称" />
-          <input v-model="food.foodPrice" placeholder="食品价格" type="number" />
-          <button @click="saveFood(index)">保存更改</button>
-          <button @click="removeFood(index)">删除</button>
-        </li>
-      </ul>
     </div>
+    <ul>
+      <li v-for="(food, index) in foods" :key="index" class="food-item">
+        <input @change="uploadPhoto($event, index)" type="file" class="kyc-passin">
+        <img :src="food.foodImg" alt="">
+        <input v-model="food.foodName" placeholder="食品名称" />
+        <input v-model="food.foodPrice" placeholder="食品价格" type="number" />
+        <button @click="saveFood(index)">保存更改</button>
+        <button @click="removeFood(index)">删除</button>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup>
-import {onMounted, ref} from 'vue';
+import { onMounted, ref } from 'vue';
 import axios from "axios";
 import { useRoute } from 'vue-router'
 const business = ref({});
-const businessId = window.localStorage.getItem('businessId');
+const businessId = ref();
 const foods = ref([]);
 const isEditing = ref(false);
 const editIndex = ref(-1);
 const addedFood = ref({});
-
+const userId = ref(window.localStorage.getItem('userId'))
+console.log(userId.value)
 const address = ref(useRoute().query.address)
 
-onMounted(() =>{
-
-  axios.get(`http://localhost:8001/business/getInfo/${businessId}`
-
-  ).then(response => {
-    business.value = response.data.data
-
-    business.value.businessAddress = address.value
-    console.log(business.value)})
-      .catch(error => {alert(error)})
-  axios.get(`http://localhost:8001/food/${businessId}`
-
-  ).then(response => {foods.value = response.data.data
-    console.log(foods.value)})
-      .catch(error => {alert(error)})
+onMounted(() => {
+  console.log(userId.value)
+  axios.get(`http://localhost:8001/business/getBusinessId`, { params: { userId: userId.value } })
+    .then(response => {
+      businessId.value = response.data.data.businessId
+      console.log(businessId.value)
+      window.localStorage.setItem('businessId', businessId.value)
+      getBusinessInfo(businessId.value)
+    })
+    .catch(error => {
+       alert(error) 
+      })
 })
+
+
+function getBusinessInfo(businessId) {
+
+  
+  axios.get(`http://localhost:8001/business/getInfo/${businessId}`)
+   .then(response => {
+      business.value = response.data.data
+      // business.value.businessAddress = address.value
+     console.log(business.value)
+  })
+  .catch(error => { alert(error) })
+
+
+  axios.get(`http://localhost:8001/food/${businessId}`
+  ).then(response => {
+    foods.value = response.data.data
+    console.log(foods.value)
+  })
+  .catch(error => { alert(error) })
+
+}
 
 function addFood() {
   addedFood.value = { foodName: '', foodImg: '', foodPrice: 0 };
@@ -101,25 +121,29 @@ function addFood() {
 function removeFood(index) {
   console.log(foods.value[index]);
   axios.delete(`http://localhost:8001/food/del`,
-      {params:{foodId:foods.value[index].foodId}})
-      .then(response => {
-        console.log(response.data)})
-      .catch(error => {alert(error)})
+    { params: { foodId: foods.value[index].foodId } })
+    .then(response => {
+      console.log(response.data)
+      foods.value.splice(index,1)
+    })
+    .catch(error => { alert(error) })
 }
 
 function saveFood(index) {
   console.log(foods.value[index]);
-  axios.put(`http://localhost:8001/food/update`,foods.value[index])
-      .then(response => {
-    console.log(response.data)})
-      .catch(error => {alert(error)})
+  axios.put(`http://localhost:8001/food/update`, foods.value[index])
+    .then(response => {
+      console.log(response.data)
+    })
+    .catch(error => { alert(error) })
 }
 function saveAddedFood(index) {
   foods.value.push(addedFood.value)
-  axios.post(`http://localhost:8001/food/add/${businessId}`,addedFood.value)
-      .then(response => {
-        console.log(response.data)})
-      .catch(error => {alert(error)})
+  axios.post(`http://localhost:8001/food/add/${businessId.value}`, addedFood.value)
+    .then(response => {
+      console.log(response.data)
+    })
+    .catch(error => { alert(error) })
 }
 
 function cancelEdit() {
@@ -131,14 +155,15 @@ function saveShopInfo() {
 }
 
 function saveSettings() {
-  axios.put(`http://localhost:8001/business/update/${businessId}`,business.value)
-      .then(response => {
-        console.log(response.data)})
-      .catch(error => {alert(error)})
+  axios.put(`http://localhost:8001/business/update/${businessId.value}`, business.value)
+    .then(response => {
+      console.log(response.data)
+    })
+    .catch(error => { alert(error) })
   alert('店铺设置已保存');
 }
 
-function uploadAddedPhoto (e) {
+function uploadAddedPhoto(e) {
   // 利用fileReader对象获取file
   var file = e.target.files[0];
   var filesize = file.size;
@@ -150,10 +175,10 @@ function uploadAddedPhoto (e) {
   reader.readAsDataURL(file);
   reader.onload = (e) => {
     // 读取到的图片base64 数据编码 将此编码字符串传给后台即可
-   addedFood.value.foodImg=e.target.result
+    addedFood.value.foodImg = e.target.result
   }
 }
-function uploadPhoto (e,index) {
+function uploadPhoto(e, index) {
   // 利用fileReader对象获取file
   var file = e.target.files[0];
   var filesize = file.size;
@@ -165,11 +190,11 @@ function uploadPhoto (e,index) {
   reader.readAsDataURL(file);
   reader.onload = (e) => {
     // 读取到的图片base64 数据编码 将此编码字符串传给后台即可
-    foods.value[index].foodImg=e.target.result
+    foods.value[index].foodImg = e.target.result
     foods.value[index].foodPrice = 3.0
   }
 }
-function uploadBusinessPhoto (e) {
+function uploadBusinessPhoto(e) {
   // 利用fileReader对象获取file
   var file = e.target.files[0];
   var filesize = file.size;
@@ -181,7 +206,7 @@ function uploadBusinessPhoto (e) {
   reader.readAsDataURL(file);
   reader.onload = (e) => {
     // 读取到的图片base64 数据编码 将此编码字符串传给后台即可
-    business.value.foodImg=e.target.result
+    business.value.foodImg = e.target.result
   }
 }
 </script>

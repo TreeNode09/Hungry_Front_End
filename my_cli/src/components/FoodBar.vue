@@ -20,7 +20,6 @@ import { ref } from 'vue'
 import add from '@/components/AddButton.vue'
 
 const prop = defineProps(['food'])
-console.log(prop.food.quantity)
 defineExpose({clearFood, setCount})
 
 const addButton = ref("")

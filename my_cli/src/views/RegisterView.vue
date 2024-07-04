@@ -82,9 +82,15 @@ function register(){
             axios.post('http://localhost:8001/business/register', {businessName: name.value}, {params:{password: password.value}}) //商家列表新建一个空的商家
                 .then(response => {
                     // isOK.value = response.data.result
-                    console.log("salkcnvb")
-                    window.localStorage.setItem('businessId', response.data.data)
-                    router.push('/shop-management')
+                    console.log(response.data.data)
+                    // window.localStorage.setItem('businessId', response.data.data)
+                    router.push('/shop-management',
+                        {
+                            query: {
+                                userId: response.data.data
+                            }
+                        }
+                    )
                     })
                 .catch(error => {alert(error)})
         }
