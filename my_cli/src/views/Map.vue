@@ -14,7 +14,7 @@ import axios from 'axios';
 
 let map = null;
 
-const address=ref("华科工程实践中心")
+const address=ref("武汉市洪山区华中科技大学工程实践创新基地")
 
 onMounted(() => {
   initMap();

@@ -7,7 +7,7 @@
         <div class="left">
             <h2>{{ business.businessName }}</h2>
             <h6>￥{{ business.startPrice }}起送，配送费￥{{ business.deliveryPrice }}</h6>
-          <h6>地址：<a href="">{{ business.businessAddress }}</a></h6>
+          <h6>地址：<a href="http://localhost:8080/map-search">{{ business.businessAddress }}</a></h6>
             <h6>介绍：{{ business.businessExplain }}</h6>
         </div>
     </div>
@@ -87,6 +87,8 @@ onBeforeMount(() =>
   {
     alert(error)
   })
+
+  window.localStorage.setItem('localAddress', business.businessAddress)
 })
 
 function emptyCart(){
