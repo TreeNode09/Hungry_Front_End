@@ -8,11 +8,11 @@
         <input type="text" :placeholder=identities[option].name class="margin-2" v-model="loginInfo.userName">
         <small><span v-if="nameEmpty">请输入{{ identities[option].name }}</span></small>
         <input type="password" placeholder="密码" class="margin-1" v-model="loginInfo.password">
-        <small><span v-if="passwordEmpty">请输入密码</span></small>
-        <div class="local">
-            <input type="checkbox" v-model="local">
-            <h5>保持登录</h5>
-        </div>
+        <small>
+            <span v-if="passwordEmpty">请输入密码</span>
+            <span v-if="notFound">用户名或密码错误</span>
+        </small>
+        <!-- <div class="local"><input type="checkbox" v-model="local"><h5>保持登录</h5></div> -->
         <button @click="login"><div class="center">确定</div></button>
     </div>
 </div>
@@ -40,7 +40,6 @@ const token = ref('')
 const nameEmpty = ref(false)
 const passwordEmpty = ref(false)
 const notFound = ref(false)
-
 
 const option = ref(0)
 const identities = ref([
@@ -80,9 +79,12 @@ function login(){
               token.value = response.data.msg
 
               if(isOK.value === true) {
+                notFound.value = false
+                window.localStorage.setItem('login', true)
                 window.localStorage.setItem('userInfo', JSON.stringify(userInfo.value))
                 router.push('/home')
               }
+              else {notFound.value = true}
             })
             .catch(error => {alert(error)})
         }

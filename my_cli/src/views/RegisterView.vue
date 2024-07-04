@@ -9,10 +9,7 @@
         <small><span v-if="nameError">请输入{{ identities[option].name }}</span></small>
         <input type="password" placeholder="密码" class="margin-1" v-model="password">
         <small><span v-if="passwordError">请输入密码</span></small>
-        <div class="local">
-            <input type="checkbox" v-model="local">
-            <h5>保持登录</h5>
-        </div>
+        <!-- <div class="local"><input type="checkbox" v-model="local"><h5>保持登录</h5></div> -->
         <button @click="register"><div class="center">确定</div></button>
     </div>
 </div>
@@ -72,6 +69,7 @@ function register(){
             axios.post('http://localhost:8001/user/reg', {userName: name.value, password: password.value})
                 .then(response => {
                     isOK.value = response.data.result
+
                     if(isOK.value === true){
                         router.push('/home')
                     }

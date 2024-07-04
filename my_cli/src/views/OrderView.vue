@@ -89,8 +89,6 @@ onMounted(() =>
   })
 })
 
-const cartFoodCount = ref(cartStore.getCartFoodsCount)  //购物车是否为空，控制购物车按钮样式
-
 function emptyCart(){
     cartStore.emptyCart()
 }
