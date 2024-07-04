@@ -102,7 +102,7 @@ function login(){
                 token.value = response.data.msg
 
                 if(isOK.value === true) {
-                    window.localStorage.setItem('businessInfo', JSON.stringify(userInfo.value))
+                    window.localStorage.setItem('businessInfo', userInfo.value)
                     router.push('/shop-management')
                 }
                 })
