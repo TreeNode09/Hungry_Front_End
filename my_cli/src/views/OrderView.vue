@@ -71,6 +71,7 @@ onBeforeMount(() =>
     for(var i = 0; i < cartStore.getAllFoodsCount; i++)
     {
       cartStore.allFoods[i]['quantity'] = 0
+      console.log(cartStore.allFoods[i])
       for(var j = 0; j < cartStore.getCartFoodsCount; j++){
         if(cartStore.allFoods[i].foodId === cartStore.cartFoods[j].foodId){
           console.log(cartStore.allFoods[i], cartStore.cartFoods[j])

@@ -23,7 +23,7 @@ const prop = defineProps(['food'])
 defineExpose({clearFood, setCount})
 
 const addButton = ref("")
-
+console.log(prop.food.quantity)
 function clearFood(){
     addButton.value.clearCount()
 }
